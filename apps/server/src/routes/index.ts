@@ -7,6 +7,7 @@ import tripRouter from "./trip.routes";
 import maintenanceRouter from "./maintenance.routes";
 import fuelLogRouter from "./fuel-log.routes";
 import expenseRouter from "./expense.routes";
+import reportRouter from "./report.routes";
 
 const router = new Hono();
 
@@ -19,5 +20,6 @@ router.route("/trips", tripRouter);
 router.route("/maintenance", maintenanceRouter);
 router.route("/fuel-logs", fuelLogRouter);
 router.route("/expenses", expenseRouter);
+router.route("/reports", reportRouter);
 
 export default router;

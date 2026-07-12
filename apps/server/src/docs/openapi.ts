@@ -33,6 +33,10 @@ export const openapiSpec = {
       description: "Logging of fuel replenishment and general operations expenses",
     },
     {
+      name: "Reports",
+      description: "Fleet performance reports, cost aggregation, and vehicle ROI analytics",
+    },
+    {
       name: "Dashboard",
       description: "Fleet metrics, active utilization, and status count summaries",
     },
@@ -72,7 +76,7 @@ export const openapiSpec = {
       "post": {
         "tags": ["Vehicles"],
         "summary": "Add Vehicle",
-        "description": "Register a new vehicle in the system. Requires FLEET_MANAGER role.",
+        "description": "Register a new vehicle in the system. Requires FLEET_MANAGER or SAFETY_OFFICER role.",
         "requestBody": {
           "required": true,
           "content": {
@@ -90,7 +94,7 @@ export const openapiSpec = {
       "patch": {
         "tags": ["Vehicles"],
         "summary": "Update Vehicle",
-        "description": "Modify details of an existing vehicle. Requires FLEET_MANAGER role.",
+        "description": "Modify details of an existing vehicle. Requires FLEET_MANAGER or SAFETY_OFFICER role.",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique vehicle ID" }
         ],
@@ -404,7 +408,7 @@ export const openapiSpec = {
       "post": {
         "tags": ["Fuel & Expenses"],
         "summary": "Create Expense",
-        "description": "Register an operating expense linked to a vehicle and optionally a trip.",
+        "description": "Register an operating expense. Requires FINANCIAL_ANALYST role.",
         "requestBody": {
           "required": true,
           "content": {
@@ -415,6 +419,32 @@ export const openapiSpec = {
         },
         "responses": {
           "201": { "description": "Registered" }
+        }
+      }
+    },
+    "/api/reports/analytics": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "Vehicle Performance Reports",
+        "description": "Aggregate per-vehicle statistics including distance, revenue, fuel efficiency, operational costs, and vehicle ROI. Requires FLEET_MANAGER or FINANCIAL_ANALYST role.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/VehicleAnalytics" }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -640,6 +670,25 @@ export const openapiSpec = {
           "category": { "type": "string", "enum": ["Tolls", "Food", "Maintenance", "Fuel", "Other"] },
           "description": { "type": "string" },
           "date": { "type": "string", "format": "date-time" }
+        }
+      },
+      VehicleAnalytics: {
+        "type": "object",
+        "properties": {
+          "vehicleId": { "type": "string" },
+          "registrationNumber": { "type": "string" },
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "acquisitionCost": { "type": "number" },
+          "totalDistance": { "type": "number" },
+          "totalRevenue": { "type": "number" },
+          "totalLiters": { "type": "number" },
+          "fuelCost": { "type": "number" },
+          "maintenanceCost": { "type": "number" },
+          "tollsCost": { "type": "number" },
+          "fuelEfficiency": { "type": "number" },
+          "totalOperationalCost": { "type": "number" },
+          "vehicleRoi": { "type": "number" }
         }
       },
       DashboardKpis: {
