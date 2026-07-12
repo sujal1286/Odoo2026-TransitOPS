@@ -1,0 +1,3 @@
+{
+  "extends": "@Odoo2026-TransitOPS/config/tsconfig.base.json"
+}
