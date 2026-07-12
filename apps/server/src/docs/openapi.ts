@@ -25,6 +25,14 @@ export const openapiSpec = {
       description: "Lifecycle, scheduling, routing, dispatching, and completion of transport trips",
     },
     {
+      name: "Maintenance",
+      description: "Vehicle maintenance workflows, active shop servicing, and closure updates",
+    },
+    {
+      name: "Fuel & Expenses",
+      description: "Logging of fuel replenishment and general operations expenses",
+    },
+    {
       name: "Dashboard",
       description: "Fleet metrics, active utilization, and status count summaries",
     },
@@ -74,9 +82,31 @@ export const openapiSpec = {
           }
         },
         "responses": {
-          "201": { "description": "Created" },
+          "201": { "description": "Created" }
+        }
+      }
+    },
+    "/api/vehicles/{id}": {
+      "patch": {
+        "tags": ["Vehicles"],
+        "summary": "Update Vehicle",
+        "description": "Modify details of an existing vehicle. Requires FLEET_MANAGER role.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique vehicle ID" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateVehicleInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Updated" },
           "400": { "description": "Validation Error" },
-          "409": { "description": "Duplicate Registration Number" }
+          "404": { "description": "Vehicle Not Found" },
+          "409": { "description": "Registration Number Conflict" }
         }
       }
     },
@@ -91,7 +121,23 @@ export const openapiSpec = {
           { "name": "available", "in": "query", "schema": { "type": "string" }, "description": "Filter available and unexpired drivers if set to true" }
         ],
         "responses": {
-          "200": { "description": "Success" }
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Driver" }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       },
       "post": {
@@ -108,6 +154,30 @@ export const openapiSpec = {
         },
         "responses": {
           "201": { "description": "Created" }
+        }
+      }
+    },
+    "/api/drivers/{id}": {
+      "patch": {
+        "tags": ["Drivers"],
+        "summary": "Update Driver",
+        "description": "Modify details of an existing driver. Requires FLEET_MANAGER or SAFETY_OFFICER roles.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique driver ID" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateDriverInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Updated" },
+          "400": { "description": "Validation Error" },
+          "404": { "description": "Driver Not Found" },
+          "409": { "description": "License Number Conflict" }
         }
       }
     },
@@ -149,8 +219,7 @@ export const openapiSpec = {
           }
         },
         "responses": {
-          "201": { "description": "Created" },
-          "400": { "description": "Validation Error" }
+          "201": { "description": "Created" }
         }
       }
     },
@@ -160,12 +229,10 @@ export const openapiSpec = {
         "summary": "Dispatch Trip",
         "description": "Validates dispatch business rules and shifts trip status to Dispatched. Requires FLEET_MANAGER or DISPATCHER role.",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique trip ID" }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": { "description": "Dispatched" },
-          "400": { "description": "Business Rule/Validation Failure" },
-          "404": { "description": "Trip Not Found" }
+          "200": { "description": "Dispatched" }
         }
       }
     },
@@ -175,7 +242,7 @@ export const openapiSpec = {
         "summary": "Complete Trip",
         "description": "Updates odometer, restores statuses to Available, and records fuel log details. Requires FLEET_MANAGER, DISPATCHER, or DRIVER role.",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique trip ID" }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
@@ -186,9 +253,7 @@ export const openapiSpec = {
           }
         },
         "responses": {
-          "200": { "description": "Completed" },
-          "400": { "description": "Business Rule/Validation Failure" },
-          "404": { "description": "Trip Not Found" }
+          "200": { "description": "Completed" }
         }
       }
     },
@@ -198,12 +263,158 @@ export const openapiSpec = {
         "summary": "Cancel Trip",
         "description": "Cancels a Draft or Dispatched trip and restores asset statuses to Available. Requires FLEET_MANAGER or DISPATCHER role.",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique trip ID" }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": { "description": "Cancelled" },
-          "400": { "description": "Business Rule/Validation Failure" },
-          "404": { "description": "Trip Not Found" }
+          "200": { "description": "Cancelled" }
+        }
+      }
+    },
+    "/api/maintenance": {
+      "get": {
+        "tags": ["Maintenance"],
+        "summary": "List Maintenance Logs",
+        "description": "Retrieve all vehicle servicing history and active logs.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/MaintenanceLog" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Maintenance"],
+        "summary": "Initiate Maintenance",
+        "description": "Places a vehicle into maintenance. Updates status to In Shop and tracks cost. Requires FLEET_MANAGER role.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateMaintenanceInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Initiated" },
+          "400": { "description": "Business Rule/Validation Failure" }
+        }
+      }
+    },
+    "/api/maintenance/{id}/close": {
+      "patch": {
+        "tags": ["Maintenance"],
+        "summary": "Close Maintenance",
+        "description": "Closes a vehicle servicing log and returns the vehicle to Available. Requires FLEET_MANAGER role.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CloseMaintenanceInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Closed" }
+        }
+      }
+    },
+    "/api/fuel-logs": {
+      "get": {
+        "tags": ["Fuel & Expenses"],
+        "summary": "List Fuel Logs",
+        "description": "Retrieve all fuel purchase history records.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/FuelLog" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Fuel & Expenses"],
+        "summary": "Log Fuel Replenishment",
+        "description": "Log fuel liters and cost, auto-generating a matching operational expense.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateFuelLogInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Logged" }
+        }
+      }
+    },
+    "/api/expenses": {
+      "get": {
+        "tags": ["Fuel & Expenses"],
+        "summary": "List Expenses",
+        "description": "Retrieve list of all operating expenses (Fuel, Maintenance, Tolls, Food, etc.).",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Expense" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Fuel & Expenses"],
+        "summary": "Create Expense",
+        "description": "Register an operating expense linked to a vehicle and optionally a trip.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateExpenseInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Registered" }
         }
       }
     },
@@ -213,7 +424,20 @@ export const openapiSpec = {
         "summary": "Dashboard KPIs",
         "description": "Retrieve summary counts and active utilization % for the fleet manager dashboard.",
         "responses": {
-          "200": { "description": "Success" }
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": { "$ref": "#/components/schemas/DashboardKpis" }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -248,9 +472,47 @@ export const openapiSpec = {
           "status": { "type": "string", "enum": ["Available", "On Trip", "In Shop", "Retired"] }
         }
       },
+      UpdateVehicleInput: {
+        "type": "object",
+        "properties": {
+          "registrationNumber": { "type": "string" },
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "maxLoadCapacity": { "type": "number" },
+          "odometer": { "type": "number" },
+          "acquisitionCost": { "type": "number" },
+          "region": { "type": "string" },
+          "status": { "type": "string", "enum": ["Available", "On Trip", "In Shop", "Retired"] }
+        }
+      },
+      Driver: {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "licenseNumber": { "type": "string" },
+          "licenseCategory": { "type": "string" },
+          "licenseExpiryDate": { "type": "string", "format": "date-time" },
+          "contactNumber": { "type": "string" },
+          "safetyScore": { "type": "number" },
+          "status": { "type": "string" }
+        }
+      },
       CreateDriverInput: {
         "type": "object",
         "required": ["name", "licenseNumber", "licenseCategory", "licenseExpiryDate", "contactNumber"],
+        "properties": {
+          "name": { "type": "string" },
+          "licenseNumber": { "type": "string" },
+          "licenseCategory": { "type": "string" },
+          "licenseExpiryDate": { "type": "string", "format": "date" },
+          "contactNumber": { "type": "string" },
+          "safetyScore": { "type": "number" },
+          "status": { "type": "string", "enum": ["Available", "On Trip", "Off Duty", "Suspended"] }
+        }
+      },
+      UpdateDriverInput: {
+        "type": "object",
         "properties": {
           "name": { "type": "string" },
           "licenseNumber": { "type": "string" },
@@ -268,7 +530,9 @@ export const openapiSpec = {
           "source": { "type": "string" },
           "destination": { "type": "string" },
           "vehicleId": { "type": "string" },
+          "vehicle": { "$ref": "#/components/schemas/Vehicle" },
           "driverId": { "type": "string" },
+          "driver": { "$ref": "#/components/schemas/Driver" },
           "cargoWeight": { "type": "number" },
           "plannedDistance": { "type": "number" },
           "revenue": { "type": "number" },
@@ -297,6 +561,97 @@ export const openapiSpec = {
           "endOdometer": { "type": "number" },
           "fuelLiters": { "type": "number" },
           "fuelCost": { "type": "number" }
+        }
+      },
+      MaintenanceLog: {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "vehicleId": { "type": "string" },
+          "vehicle": { "$ref": "#/components/schemas/Vehicle" },
+          "description": { "type": "string" },
+          "cost": { "type": "number" },
+          "startDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" },
+          "status": { "type": "string" }
+        }
+      },
+      CreateMaintenanceInput: {
+        "type": "object",
+        "required": ["vehicleId", "description", "cost"],
+        "properties": {
+          "vehicleId": { "type": "string" },
+          "description": { "type": "string" },
+          "cost": { "type": "number" },
+          "startDate": { "type": "string", "format": "date-time" }
+        }
+      },
+      CloseMaintenanceInput: {
+        "type": "object",
+        "properties": {
+          "endDate": { "type": "string", "format": "date-time" }
+        }
+      },
+      FuelLog: {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "vehicleId": { "type": "string" },
+          "vehicle": { "$ref": "#/components/schemas/Vehicle" },
+          "tripId": { "type": "string" },
+          "trip": { "$ref": "#/components/schemas/Trip" },
+          "liters": { "type": "number" },
+          "cost": { "type": "number" },
+          "date": { "type": "string", "format": "date-time" }
+        }
+      },
+      CreateFuelLogInput: {
+        "type": "object",
+        "required": ["vehicleId", "liters", "cost"],
+        "properties": {
+          "vehicleId": { "type": "string" },
+          "tripId": { "type": "string" },
+          "liters": { "type": "number" },
+          "cost": { "type": "number" },
+          "date": { "type": "string", "format": "date-time" }
+        }
+      },
+      Expense: {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "vehicleId": { "type": "string" },
+          "vehicle": { "$ref": "#/components/schemas/Vehicle" },
+          "tripId": { "type": "string" },
+          "trip": { "$ref": "#/components/schemas/Trip" },
+          "amount": { "type": "number" },
+          "category": { "type": "string" },
+          "description": { "type": "string" },
+          "date": { "type": "string", "format": "date-time" }
+        }
+      },
+      CreateExpenseInput: {
+        "type": "object",
+        "required": ["vehicleId", "amount", "category"],
+        "properties": {
+          "vehicleId": { "type": "string" },
+          "tripId": { "type": "string" },
+          "amount": { "type": "number" },
+          "category": { "type": "string", "enum": ["Tolls", "Food", "Maintenance", "Fuel", "Other"] },
+          "description": { "type": "string" },
+          "date": { "type": "string", "format": "date-time" }
+        }
+      },
+      DashboardKpis: {
+        "type": "object",
+        "properties": {
+          "activeVehicles": { "type": "number" },
+          "availableVehicles": { "type": "number" },
+          "maintenanceVehicles": { "type": "number" },
+          "activeTrips": { "type": "number" },
+          "pendingTrips": { "type": "number" },
+          "driversOnDuty": { "type": "number" },
+          "fleetUtilization": { "type": "number" }
         }
       }
     }
