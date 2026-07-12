@@ -49,16 +49,16 @@ export default function AnalyticsTable() {
   };
 
   return (
-    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-4">
+    <div className="bg-card/85 backdrop-blur-md border border-border/70 rounded-md p-6 space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold text-zinc-400 tracking-wide uppercase">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">
           Vehicle Performance Details
         </h3>
         <Button
           onClick={handleExportCsv}
           disabled={!analytics || analytics.length === 0}
           size="sm"
-          className="bg-zinc-800 hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-semibold text-xs px-3 py-1.5 h-auto flex items-center gap-1.5 border border-zinc-700"
+          className="flex h-auto items-center gap-1.5 border border-border bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white"
         >
           <Download className="h-3.5 w-3.5" />
           <span>Export CSV</span>
@@ -68,7 +68,7 @@ export default function AnalyticsTable() {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse text-sm">
           <thead>
-            <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider">
+            <tr className="border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               <th className="pb-3 pr-4">VEHICLE</th>
               <th className="pb-3 px-4">TYPE</th>
               <th className="pb-3 px-4 text-right">DISTANCE</th>
@@ -81,16 +81,16 @@ export default function AnalyticsTable() {
               <th className="pb-3 pl-4 text-right">ROI</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50">
+          <tbody className="divide-y divide-border/70">
             {isLoading ? (
               <tr>
-                <td colSpan={10} className="py-8 text-center text-zinc-600">
+                <td colSpan={10} className="py-8 text-center text-muted-foreground">
                   Loading analytics...
                 </td>
               </tr>
             ) : !analytics || analytics.length === 0 ? (
               <tr>
-                <td colSpan={10} className="py-8 text-center text-zinc-600">
+                <td colSpan={10} className="py-8 text-center text-muted-foreground">
                   No analytics data available. Complete some trips to generate reports.
                 </td>
               </tr>
@@ -98,27 +98,27 @@ export default function AnalyticsTable() {
               analytics.map((v) => {
                 const roiColor =
                   v.vehicleRoi > 10
-                    ? "text-emerald-400"
+                    ? "text-emerald-600 dark:text-emerald-400"
                     : v.vehicleRoi > 0
-                      ? "text-amber-400"
-                      : "text-rose-400";
+                      ? "text-amber-600 dark:text-amber-400"
+                      : "text-rose-600 dark:text-rose-400";
 
                 return (
-                  <tr key={v.vehicleId} className="text-zinc-300">
+                  <tr key={v.vehicleId} className="text-foreground">
                     <td className="py-3 pr-4">
                       <div>
-                        <span className="font-semibold text-zinc-200">{v.name}</span>
-                        <span className="block text-[10px] text-zinc-500 dark:text-zinc-400 font-medium">{v.registrationNumber}</span>
+                        <span className="font-semibold text-foreground">{v.name}</span>
+                        <span className="block text-[10px] font-medium text-muted-foreground">{v.registrationNumber}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-zinc-400 font-medium">{v.type}</td>
-                    <td className="py-3 px-4 text-right text-zinc-400 font-medium">{v.totalDistance.toLocaleString()} km</td>
-                    <td className="py-3 px-4 text-right font-semibold text-zinc-200">₹{v.totalRevenue.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-right text-zinc-400">₹{v.fuelCost.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-right text-zinc-400">₹{v.maintenanceCost.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-right text-zinc-400">₹{v.tollsCost.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-right font-semibold text-zinc-200">₹{v.totalOperationalCost.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-right text-zinc-400 font-medium">{v.fuelEfficiency.toFixed(1)}</td>
+                    <td className="py-3 px-4 font-medium text-muted-foreground">{v.type}</td>
+                    <td className="py-3 px-4 text-right font-medium text-muted-foreground">{v.totalDistance.toLocaleString()} km</td>
+                    <td className="py-3 px-4 text-right font-semibold text-foreground">₹{v.totalRevenue.toLocaleString()}</td>
+                    <td className="py-3 px-4 text-right text-muted-foreground">₹{v.fuelCost.toLocaleString()}</td>
+                    <td className="py-3 px-4 text-right text-muted-foreground">₹{v.maintenanceCost.toLocaleString()}</td>
+                    <td className="py-3 px-4 text-right text-muted-foreground">₹{v.tollsCost.toLocaleString()}</td>
+                    <td className="py-3 px-4 text-right font-semibold text-foreground">₹{v.totalOperationalCost.toLocaleString()}</td>
+                    <td className="py-3 px-4 text-right font-medium text-muted-foreground">{v.fuelEfficiency.toFixed(1)}</td>
                     <td className={`py-3 pl-4 text-right font-bold ${roiColor}`}>{v.vehicleRoi.toFixed(1)}%</td>
                   </tr>
                 );
@@ -128,7 +128,7 @@ export default function AnalyticsTable() {
         </table>
       </div>
 
-      <div className="border-t border-zinc-900 pt-4 text-[10px] text-zinc-600 font-medium italic">
+      <div className="border-t border-border pt-4 text-[10px] font-medium italic text-muted-foreground">
         ROI = (Revenue − (Maintenance + Fuel)) / Acquisition Cost × 100
       </div>
     </div>

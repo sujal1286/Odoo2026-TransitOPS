@@ -29,9 +29,9 @@ export default function ServiceLogs() {
   };
 
   return (
-    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-4">
-      <div className="border-b border-zinc-900 pb-4">
-        <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
+    <div className="bg-card/85 backdrop-blur-md border border-border/70 rounded-md p-6 space-y-4">
+      <div className="border-b border-border pb-4">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground">
           Service Logs
         </h2>
       </div>
@@ -39,7 +39,7 @@ export default function ServiceLogs() {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse text-sm">
           <thead>
-            <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider">
+            <tr className="border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               <th className="pb-3 pr-4">VEHICLE</th>
               <th className="pb-3 px-4">SERVICE</th>
               <th className="pb-3 px-4">COST</th>
@@ -47,16 +47,16 @@ export default function ServiceLogs() {
               {isFleetManager && <th className="pb-3 pl-4 text-right">ACTIONS</th>}
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50">
+          <tbody className="divide-y divide-border/70">
             {isLogsLoading ? (
               <tr>
-                <td colSpan={5} className="py-8 text-center text-zinc-600">
+                <td colSpan={5} className="py-8 text-center text-muted-foreground">
                   Loading service records...
                 </td>
               </tr>
             ) : !logs || logs.length === 0 ? (
               <tr>
-                <td colSpan={5} className="py-8 text-center text-zinc-600">
+                <td colSpan={5} className="py-8 text-center text-muted-foreground">
                   No service records logged.
                 </td>
               </tr>
@@ -66,22 +66,22 @@ export default function ServiceLogs() {
                 const isLogActive = log.status === "In Shop" || log.status === "Active";
 
                 return (
-                  <tr key={log.id} className="text-zinc-300">
-                    <td className="py-3.5 pr-4 font-semibold text-zinc-200">
+                  <tr key={log.id} className="text-foreground">
+                    <td className="py-3.5 pr-4 font-semibold text-foreground">
                       {vehicleName}
                     </td>
-                    <td className="py-3.5 px-4 font-medium">
+                    <td className="py-3.5 px-4 font-medium text-foreground">
                       {log.description}
                     </td>
-                    <td className="py-3.5 px-4 font-semibold text-zinc-200">
+                    <td className="py-3.5 px-4 font-semibold text-foreground">
                       ₹{log.cost.toLocaleString()}
                     </td>
                     <td className="py-3.5 px-4">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${
                           isLogActive
-                            ? "bg-amber-950/40 text-amber-400 border-amber-800/40"
-                            : "bg-emerald-950/40 text-emerald-400 border-emerald-800/40"
+                            ? "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/40"
+                            : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/40"
                         }`}
                       >
                         {isLogActive ? "In Shop" : "Completed"}
@@ -94,13 +94,13 @@ export default function ServiceLogs() {
                             onClick={() => handleCloseLog(log.id)}
                             disabled={closeMutation.isPending}
                             size="sm"
-                            className="bg-emerald-800 hover:bg-emerald-700 text-white font-semibold text-[11px] px-2.5 py-1 h-auto flex items-center gap-1 border-emerald-900 ml-auto"
+                            className="ml-auto flex h-auto items-center gap-1 border-emerald-800 bg-emerald-700 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-emerald-600"
                           >
                             <CheckCircle className="h-3.5 w-3.5" />
                             <span>Close Log</span>
                           </Button>
                         ) : (
-                          <span className="text-zinc-600 font-medium text-xs pr-2.5">—</span>
+                          <span className="pr-2.5 text-xs font-medium text-muted-foreground">—</span>
                         )}
                       </td>
                     )}

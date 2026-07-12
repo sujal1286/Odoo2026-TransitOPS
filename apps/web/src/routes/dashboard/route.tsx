@@ -26,12 +26,12 @@ function DashboardLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className="bg-zinc-50/50 dark:bg-[#09090b]/50 backdrop-blur-md">
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-950/40 backdrop-blur-md px-4">
+      <SidebarInset className="bg-background/60 backdrop-blur-md">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b border-border bg-card/70 px-4 backdrop-blur-md">
           <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1 text-zinc-600 dark:text-zinc-400" />
-            <Separator orientation="vertical" className="mr-2 h-4 bg-zinc-200/50 dark:bg-zinc-800/50" />
-            <span className="font-medium text-sm text-zinc-500 dark:text-zinc-400 capitalize">
+            <SidebarTrigger className="-ml-1 text-muted-foreground" />
+            <Separator orientation="vertical" className="mr-2 h-4 bg-border" />
+            <span className="font-medium text-sm capitalize text-muted-foreground">
               {breadcrumb}
             </span>
           </div>

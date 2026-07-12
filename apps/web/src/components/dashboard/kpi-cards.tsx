@@ -26,12 +26,12 @@ export default function DashboardKpis() {
       {cards.map((c, i) => (
         <div
           key={i}
-          className={`bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-4 flex flex-col justify-between min-h-[90px] border-l-4 ${c.border} shadow-sm`}
+          className={`bg-card/85 backdrop-blur-md border border-border/70 rounded-md p-4 flex flex-col justify-between min-h-[90px] border-l-4 ${c.border} shadow-sm`}
         >
-          <span className="text-[9px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider">
+          <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
             {c.label}
           </span>
-          <span className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mt-2">
+          <span className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
             {c.value}
           </span>
         </div>

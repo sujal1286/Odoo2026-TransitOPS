@@ -153,23 +153,23 @@ export default function DispatcherConsole() {
     const tripExceedAmount = selectedTripVehicle ? selectedTrip.cargoWeight - selectedTripVehicle.maxLoadCapacity : 0;
 
     return (
-      <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-6">
-        <div className="flex items-center justify-between border-b border-zinc-900 pb-4">
+      <div className="bg-card/85 backdrop-blur-md border border-border/70 rounded-md p-6 space-y-6">
+        <div className="flex items-center justify-between border-b border-border pb-4">
           <div className="flex items-center gap-2">
             <button
               onClick={clearSelection}
-              className="text-zinc-500 hover:text-zinc-700 dark:text-zinc-300 transition-colors p-1"
+              className="p-1 text-muted-foreground transition-colors hover:text-foreground"
             >
               <ArrowLeft className="h-4.5 w-4.5" />
             </button>
-            <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
+            <span className="text-sm font-semibold uppercase tracking-wide text-foreground">
               Trip Details: {selectedTrip.id.substring(0, 8)}...
             </span>
           </div>
           <Button
             onClick={clearSelection}
             variant="outline"
-            className="border-zinc-800 text-zinc-400 hover:text-zinc-800 dark:text-zinc-200 text-xs px-2.5 py-1 h-auto font-semibold flex items-center gap-1"
+            className="flex h-auto items-center gap-1 border-border px-2.5 py-1 text-xs font-semibold text-muted-foreground hover:text-foreground"
           >
             <Plus className="h-3.5 w-3.5" />
             Create New
@@ -177,49 +177,49 @@ export default function DispatcherConsole() {
         </div>
 
         <div className="space-y-3">
-          <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider uppercase block">
+          <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
             Trip Lifecycle
           </span>
-          <div className="flex items-center justify-between bg-zinc-900/50 p-4 border border-zinc-200/50 dark:border-zinc-800/50/40 rounded-md">
+          <div className="flex items-center justify-between rounded-md border border-border bg-muted/40 p-4">
             <div className="flex flex-col items-center flex-1 relative">
               <div
                 className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                   isDraft || isDispatched || isCompleted
-                    ? "bg-emerald-500 text-zinc-950"
-                    : "bg-zinc-800 text-zinc-500"
+                    ? "bg-emerald-500 text-foreground"
+                    : "bg-muted text-muted-foreground"
                 }`}
               >
                 1
               </div>
-              <span className="text-[10px] font-semibold text-zinc-400 mt-1.5">Draft</span>
+              <span className="mt-1.5 text-[10px] font-semibold text-muted-foreground">Draft</span>
             </div>
-            <div className="h-0.5 bg-zinc-800 flex-1 -mt-4" />
+            <div className="h-0.5 flex-1 -mt-4 bg-border" />
             <div className="flex flex-col items-center flex-1 relative">
               <div
                 className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                   isDispatched || isCompleted
-                    ? "bg-blue-500 text-zinc-950"
-                    : "bg-zinc-800 text-zinc-500"
+                    ? "bg-blue-500 text-foreground"
+                    : "bg-muted text-muted-foreground"
                 }`}
               >
                 2
               </div>
-              <span className="text-[10px] font-semibold text-zinc-400 mt-1.5">Dispatched</span>
+              <span className="mt-1.5 text-[10px] font-semibold text-muted-foreground">Dispatched</span>
             </div>
-            <div className="h-0.5 bg-zinc-800 flex-1 -mt-4" />
+            <div className="h-0.5 flex-1 -mt-4 bg-border" />
             <div className="flex flex-col items-center flex-1 relative">
               <div
                 className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                   isCompleted
-                    ? "bg-emerald-500 text-zinc-950"
+                    ? "bg-emerald-500 text-foreground"
                     : isCancelled
-                    ? "bg-rose-500 text-zinc-950"
-                    : "bg-zinc-800 text-zinc-500"
+                    ? "bg-rose-500 text-foreground"
+                    : "bg-muted text-muted-foreground"
                 }`}
               >
                 3
               </div>
-              <span className="text-[10px] font-semibold text-zinc-400 mt-1.5">
+              <span className="mt-1.5 text-[10px] font-semibold text-muted-foreground">
                 {isCancelled ? "Cancelled" : "Completed"}
               </span>
             </div>
@@ -227,18 +227,18 @@ export default function DispatcherConsole() {
         </div>
 
         {isCompleting ? (
-          <form onSubmit={handleCompleteSubmit(onCompleteSubmit)} className="space-y-4 border border-amber-800/20 bg-amber-950/5 p-4 rounded-md">
-            <h4 className="text-xs font-bold text-amber-500 uppercase tracking-wide">
+          <form onSubmit={handleCompleteSubmit(onCompleteSubmit)} className="space-y-4 rounded-md border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-800/20 dark:bg-amber-950/5">
+            <h4 className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">
               Complete Operational Details
             </h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-1">
-                <Label htmlFor="endOdometer" className="text-[11px] text-zinc-400">End Odometer (km)</Label>
+                <Label htmlFor="endOdometer" className="text-[11px] font-medium text-muted-foreground">End Odometer (km)</Label>
                 <Input
                   id="endOdometer"
                   type="number"
                   {...completeRegister("endOdometer", { valueAsNumber: true })}
-                  className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+                  className="border-input bg-background text-foreground text-sm focus-visible:ring-ring/40"
                 />
                 {completeErrors.endOdometer && (
                   <p className="text-red-500 text-xs">
@@ -248,12 +248,12 @@ export default function DispatcherConsole() {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="fuelLiters" className="text-[11px] text-zinc-400">Fuel Liters</Label>
+                <Label htmlFor="fuelLiters" className="text-[11px] font-medium text-muted-foreground">Fuel Liters</Label>
                 <Input
                   id="fuelLiters"
                   type="number"
                   {...completeRegister("fuelLiters", { valueAsNumber: true })}
-                  className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+                  className="border-input bg-background text-foreground text-sm focus-visible:ring-ring/40"
                 />
                 {completeErrors.fuelLiters && (
                   <p className="text-red-500 text-xs">
@@ -264,12 +264,12 @@ export default function DispatcherConsole() {
             </div>
 
             <div className="space-y-1">
-              <Label htmlFor="fuelCost" className="text-[11px] text-zinc-400">Fuel Cost (₹)</Label>
+              <Label htmlFor="fuelCost" className="text-[11px] font-medium text-muted-foreground">Fuel Cost (₹)</Label>
               <Input
                 id="fuelCost"
                 type="number"
                 {...completeRegister("fuelCost", { valueAsNumber: true })}
-                className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+                className="border-input bg-background text-foreground text-sm focus-visible:ring-ring/40"
               />
               {completeErrors.fuelCost && (
                 <p className="text-red-500 text-xs">
@@ -282,14 +282,14 @@ export default function DispatcherConsole() {
               <button
                 type="button"
                 onClick={() => setIsCompleting(false)}
-                className="text-xs font-semibold text-zinc-400 hover:text-zinc-800 dark:text-zinc-200 px-3 py-2 transition-colors"
+                className="px-3 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
               >
                 Cancel
               </button>
               <Button
                 type="submit"
                 disabled={!isCompleteValid || isCompletingSubmit}
-                className="bg-amber-700 hover:bg-amber-600 text-white font-semibold text-xs px-4 py-2 border-amber-800 ml-auto"
+                className="ml-auto border-amber-800 bg-amber-700 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-600"
               >
                 Confirm Completion
               </Button>
@@ -297,63 +297,63 @@ export default function DispatcherConsole() {
           </form>
         ) : (
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4 text-xs">
-              <div className="bg-zinc-900/30 border border-zinc-200/50 dark:border-zinc-800/50/40 p-3 rounded-md">
-                <span className="text-zinc-500 block font-medium">Source</span>
-                <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{selectedTrip.source}</span>
+            <div className="grid grid-cols-1 gap-4 text-xs sm:grid-cols-2">
+              <div className="rounded-md border border-border bg-muted/40 p-3">
+                <span className="block font-medium text-muted-foreground">Source</span>
+                <span className="font-semibold text-foreground">{selectedTrip.source}</span>
               </div>
-              <div className="bg-zinc-900/30 border border-zinc-200/50 dark:border-zinc-800/50/40 p-3 rounded-md">
-                <span className="text-zinc-500 block font-medium">Destination</span>
-                <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{selectedTrip.destination}</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 text-xs">
-              <div className="bg-zinc-900/30 border border-zinc-200/50 dark:border-zinc-800/50/40 p-3 rounded-md">
-                <span className="text-zinc-500 block font-medium">Vehicle Assigned</span>
-                <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{selectedTripVehicle ? `${selectedTripVehicle.name} (${selectedTripVehicle.registrationNumber})` : "Unassigned"}</span>
-              </div>
-              <div className="bg-zinc-900/30 border border-zinc-200/50 dark:border-zinc-800/50/40 p-3 rounded-md">
-                <span className="text-zinc-500 block font-medium">Driver Assigned</span>
-                <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{selectedTripDriver ? selectedTripDriver.name : "Unassigned"}</span>
+              <div className="rounded-md border border-border bg-muted/40 p-3">
+                <span className="block font-medium text-muted-foreground">Destination</span>
+                <span className="font-semibold text-foreground">{selectedTrip.destination}</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 text-xs">
-              <div className="bg-zinc-900/30 border border-zinc-200/50 dark:border-zinc-800/50/40 p-3 rounded-md">
-                <span className="text-zinc-500 block font-medium">Cargo Weight</span>
-                <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{selectedTrip.cargoWeight} kg</span>
+            <div className="grid grid-cols-1 gap-4 text-xs sm:grid-cols-2">
+              <div className="rounded-md border border-border bg-muted/40 p-3">
+                <span className="block font-medium text-muted-foreground">Vehicle Assigned</span>
+                <span className="font-semibold text-foreground">{selectedTripVehicle ? `${selectedTripVehicle.name} (${selectedTripVehicle.registrationNumber})` : "Unassigned"}</span>
               </div>
-              <div className="bg-zinc-900/30 border border-zinc-200/50 dark:border-zinc-800/50/40 p-3 rounded-md">
-                <span className="text-zinc-500 block font-medium">Distance</span>
-                <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{selectedTrip.plannedDistance} km</span>
+              <div className="rounded-md border border-border bg-muted/40 p-3">
+                <span className="block font-medium text-muted-foreground">Driver Assigned</span>
+                <span className="font-semibold text-foreground">{selectedTripDriver ? selectedTripDriver.name : "Unassigned"}</span>
               </div>
-              <div className="bg-zinc-900/30 border border-zinc-200/50 dark:border-zinc-800/50/40 p-3 rounded-md">
-                <span className="text-zinc-500 block font-medium">Revenue</span>
-                <span className="text-zinc-800 dark:text-zinc-200 font-semibold">₹{selectedTrip.revenue.toLocaleString()}</span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 text-xs sm:grid-cols-3">
+              <div className="rounded-md border border-border bg-muted/40 p-3">
+                <span className="block font-medium text-muted-foreground">Cargo Weight</span>
+                <span className="font-semibold text-foreground">{selectedTrip.cargoWeight} kg</span>
+              </div>
+              <div className="rounded-md border border-border bg-muted/40 p-3">
+                <span className="block font-medium text-muted-foreground">Distance</span>
+                <span className="font-semibold text-foreground">{selectedTrip.plannedDistance} km</span>
+              </div>
+              <div className="rounded-md border border-border bg-muted/40 p-3">
+                <span className="block font-medium text-muted-foreground">Revenue</span>
+                <span className="font-semibold text-foreground">₹{selectedTrip.revenue.toLocaleString()}</span>
               </div>
             </div>
 
             {isDraft && tripCapacityExceeded && (
-              <div className="border border-red-800/40 bg-red-950/20 text-red-400 p-4 rounded-md text-xs space-y-1">
+              <div className="space-y-1 rounded-md border border-red-200 bg-red-50 p-4 text-xs text-red-700 dark:border-red-800/40 dark:bg-red-950/20 dark:text-red-400">
                 <p className="font-semibold flex items-center gap-1.5">
                   <Info className="h-4.5 w-4.5" />
                   <span>Vehicle Capacity: {selectedTripVehicle?.maxLoadCapacity} kg</span>
                 </p>
                 <p>Cargo Weight: {selectedTrip.cargoWeight} kg</p>
-                <p className="font-bold border-t border-red-900/40 pt-1 mt-1 text-red-500">
+                <p className="mt-1 border-t border-red-200 pt-1 font-bold text-red-600 dark:border-red-900/40 dark:text-red-500">
                   X Capacity exceeded by {tripExceedAmount} kg — dispatch blocked
                 </p>
               </div>
             )}
 
-            <div className="flex items-center gap-3 pt-4 border-t border-zinc-900">
+            <div className="flex flex-col gap-3 border-t border-border pt-4 sm:flex-row sm:items-center">
               {isDraft && (
                 <>
                   <Button
                     onClick={handleDispatch}
                     disabled={tripCapacityExceeded || dispatchMutation.isPending}
-                    className="bg-amber-700 hover:bg-amber-600 text-white font-semibold text-xs px-4 py-2 border-amber-800 flex items-center gap-1.5"
+                    className="flex items-center gap-1.5 border-amber-800 bg-amber-700 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-600"
                   >
                     <Play className="h-3.5 w-3.5 fill-current" />
                     <span>Dispatch</span>
@@ -362,7 +362,7 @@ export default function DispatcherConsole() {
                     onClick={handleCancel}
                     disabled={cancelMutation.isPending}
                     variant="outline"
-                    className="border-zinc-800 text-rose-500 hover:text-rose-400 text-xs px-4 py-2 font-semibold flex items-center gap-1.5"
+                    className="flex items-center gap-1.5 border-border px-4 py-2 text-xs font-semibold text-rose-600 hover:text-rose-500"
                   >
                     <Ban className="h-3.5 w-3.5" />
                     <span>Cancel</span>
@@ -374,7 +374,7 @@ export default function DispatcherConsole() {
                 <>
                   <Button
                     onClick={() => setIsCompleting(true)}
-                    className="bg-amber-700 hover:bg-amber-600 text-white font-semibold text-xs px-4 py-2 border-amber-800 flex items-center gap-1.5"
+                    className="flex items-center gap-1.5 border-amber-800 bg-amber-700 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-600"
                   >
                     <CheckCircle className="h-3.5 w-3.5" />
                     <span>Complete</span>
@@ -383,7 +383,7 @@ export default function DispatcherConsole() {
                     onClick={handleCancel}
                     disabled={cancelMutation.isPending}
                     variant="outline"
-                    className="border-zinc-800 text-rose-500 hover:text-rose-400 text-xs px-4 py-2 font-semibold flex items-center gap-1.5"
+                    className="flex items-center gap-1.5 border-border px-4 py-2 text-xs font-semibold text-rose-600 hover:text-rose-500"
                   >
                     <Ban className="h-3.5 w-3.5" />
                     <span>Cancel</span>
@@ -398,21 +398,21 @@ export default function DispatcherConsole() {
   }
 
   return (
-    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-6">
-      <div className="border-b border-zinc-900 pb-4">
-        <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
+    <div className="bg-card/85 backdrop-blur-md border border-border/70 rounded-md p-6 space-y-6">
+      <div className="border-b border-border pb-4">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground">
           Create Trip (Draft)
         </h2>
       </div>
 
       <form onSubmit={handleCreateSubmit(onCreateSubmit)} className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-1">
-            <Label htmlFor="source" className="text-[11px] text-zinc-400">Source</Label>
+            <Label htmlFor="source" className="text-[11px] font-medium text-muted-foreground">Source</Label>
             <Input
               id="source"
               {...createRegister("source")}
-              className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+              className="border-input bg-background text-foreground text-sm focus-visible:ring-ring/40"
             />
             {createErrors.source && (
               <p className="text-red-500 text-xs">
@@ -422,11 +422,11 @@ export default function DispatcherConsole() {
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="destination" className="text-[11px] text-zinc-400">Destination</Label>
+            <Label htmlFor="destination" className="text-[11px] font-medium text-muted-foreground">Destination</Label>
             <Input
               id="destination"
               {...createRegister("destination")}
-              className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+              className="border-input bg-background text-foreground text-sm focus-visible:ring-ring/40"
             />
             {createErrors.destination && (
               <p className="text-red-500 text-xs">
@@ -436,14 +436,14 @@ export default function DispatcherConsole() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-1">
-            <Label htmlFor="vehicleId" className="text-[11px] text-zinc-400">Vehicle (Available Only)</Label>
+            <Label htmlFor="vehicleId" className="text-[11px] font-medium text-muted-foreground">Vehicle (Available Only)</Label>
             <div className="relative">
               <select
                 id="vehicleId"
                 {...createRegister("vehicleId")}
-                className="w-full appearance-none bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-800 dark:text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer"
+                className="w-full appearance-none rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring/40"
               >
                 <option value="">Select vehicle...</option>
                 {availableVehicles.map((v) => (
@@ -461,12 +461,12 @@ export default function DispatcherConsole() {
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="driverId" className="text-[11px] text-zinc-400">Driver (Available Only)</Label>
+            <Label htmlFor="driverId" className="text-[11px] font-medium text-muted-foreground">Driver (Available Only)</Label>
             <div className="relative">
               <select
                 id="driverId"
                 {...createRegister("driverId")}
-                className="w-full appearance-none bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-800 dark:text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer"
+                className="w-full appearance-none rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring/40"
               >
                 <option value="">Select driver...</option>
                 {availableDrivers.map((d) => (
@@ -484,14 +484,14 @@ export default function DispatcherConsole() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="space-y-1">
-            <Label htmlFor="cargoWeight" className="text-[11px] text-zinc-400">Cargo Weight (kg)</Label>
+            <Label htmlFor="cargoWeight" className="text-[11px] font-medium text-muted-foreground">Cargo Weight (kg)</Label>
             <Input
               id="cargoWeight"
               type="number"
               {...createRegister("cargoWeight", { valueAsNumber: true })}
-              className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+              className="border-input bg-background text-foreground text-sm focus-visible:ring-ring/40"
             />
             {createErrors.cargoWeight && (
               <p className="text-red-500 text-xs">
@@ -501,12 +501,12 @@ export default function DispatcherConsole() {
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="plannedDistance" className="text-[11px] text-zinc-400">Distance (km)</Label>
+            <Label htmlFor="plannedDistance" className="text-[11px] font-medium text-muted-foreground">Distance (km)</Label>
             <Input
               id="plannedDistance"
               type="number"
               {...createRegister("plannedDistance", { valueAsNumber: true })}
-              className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+              className="border-input bg-background text-foreground text-sm focus-visible:ring-ring/40"
             />
             {createErrors.plannedDistance && (
               <p className="text-red-500 text-xs">
@@ -516,12 +516,12 @@ export default function DispatcherConsole() {
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="revenue" className="text-[11px] text-zinc-400">Revenue (₹)</Label>
+            <Label htmlFor="revenue" className="text-[11px] font-medium text-muted-foreground">Revenue (₹)</Label>
             <Input
               id="revenue"
               type="number"
               {...createRegister("revenue", { valueAsNumber: true })}
-              className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+              className="border-input bg-background text-foreground text-sm focus-visible:ring-ring/40"
             />
             {createErrors.revenue && (
               <p className="text-red-500 text-xs">
@@ -532,23 +532,23 @@ export default function DispatcherConsole() {
         </div>
 
         {capacityExceeded && (
-          <div className="border border-red-800/40 bg-red-950/20 text-red-400 p-4 rounded-md text-xs space-y-1">
+          <div className="space-y-1 rounded-md border border-red-200 bg-red-50 p-4 text-xs text-red-700 dark:border-red-800/40 dark:bg-red-950/20 dark:text-red-400">
             <p className="font-semibold flex items-center gap-1.5">
               <Info className="h-4.5 w-4.5" />
               <span>Vehicle Capacity: {selectedVehicle?.maxLoadCapacity} kg</span>
             </p>
             <p>Cargo Weight: {watchCargoWeight} kg</p>
-            <p className="font-bold border-t border-red-900/40 pt-1 mt-1 text-red-500">
+            <p className="mt-1 border-t border-red-200 pt-1 font-bold text-red-600 dark:border-red-900/40 dark:text-red-500">
               X Capacity exceeded by {exceedAmount} kg — dispatch blocked
             </p>
           </div>
         )}
 
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-900">
+        <div className="flex items-center justify-end gap-3 border-t border-border pt-4">
           <Button
             type="submit"
             disabled={!isCreateValid || capacityExceeded || createMutation.isPending}
-            className="bg-amber-700 hover:bg-amber-600 text-white font-semibold text-xs px-4 py-2 border-amber-800"
+            className="border-amber-800 bg-amber-700 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-600"
           >
             Create Draft Trip
           </Button>

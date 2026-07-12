@@ -21,17 +21,17 @@ export default function VehicleStatusChart() {
   const retiredPct = total > 0 ? (retired / total) * 100 : 0;
 
   return (
-    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-5">
-      <h3 className="text-sm font-semibold text-zinc-400 tracking-wide uppercase mb-6">
+    <div className="bg-card/85 backdrop-blur-md border border-border/70 rounded-md p-5">
+      <h3 className="mb-6 text-sm font-semibold uppercase tracking-wide text-foreground">
         Vehicle Status
       </h3>
       <div className="space-y-5">
         <div className="space-y-2">
           <div className="flex justify-between items-center text-sm font-medium">
-            <span className="text-zinc-400">Available</span>
-            <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{available}</span>
+            <span className="text-muted-foreground">Available</span>
+            <span className="font-semibold text-foreground">{available}</span>
           </div>
-          <div className="h-2 w-full bg-white/50 dark:bg-zinc-900/50 rounded-full overflow-hidden">
+          <div className="h-2 w-full overflow-hidden rounded-full bg-muted/80">
             <div
               className="h-full bg-emerald-500 rounded-full transition-all duration-500"
               style={{ width: `${availablePct}%` }}
@@ -41,10 +41,10 @@ export default function VehicleStatusChart() {
 
         <div className="space-y-2">
           <div className="flex justify-between items-center text-sm font-medium">
-            <span className="text-zinc-400">On Trip</span>
-            <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{onTrip}</span>
+            <span className="text-muted-foreground">On Trip</span>
+            <span className="font-semibold text-foreground">{onTrip}</span>
           </div>
-          <div className="h-2 w-full bg-white/50 dark:bg-zinc-900/50 rounded-full overflow-hidden">
+          <div className="h-2 w-full overflow-hidden rounded-full bg-muted/80">
             <div
               className="h-full bg-blue-500 rounded-full transition-all duration-500"
               style={{ width: `${onTripPct}%` }}
@@ -54,10 +54,10 @@ export default function VehicleStatusChart() {
 
         <div className="space-y-2">
           <div className="flex justify-between items-center text-sm font-medium">
-            <span className="text-zinc-400">In Shop</span>
-            <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{inShop}</span>
+            <span className="text-muted-foreground">In Shop</span>
+            <span className="font-semibold text-foreground">{inShop}</span>
           </div>
-          <div className="h-2 w-full bg-white/50 dark:bg-zinc-900/50 rounded-full overflow-hidden">
+          <div className="h-2 w-full overflow-hidden rounded-full bg-muted/80">
             <div
               className="h-full bg-amber-500 rounded-full transition-all duration-500"
               style={{ width: `${inShopPct}%` }}
@@ -67,10 +67,10 @@ export default function VehicleStatusChart() {
 
         <div className="space-y-2">
           <div className="flex justify-between items-center text-sm font-medium">
-            <span className="text-zinc-400">Retired</span>
-            <span className="text-zinc-800 dark:text-zinc-200 font-semibold">{retired}</span>
+            <span className="text-muted-foreground">Retired</span>
+            <span className="font-semibold text-foreground">{retired}</span>
           </div>
-          <div className="h-2 w-full bg-white/50 dark:bg-zinc-900/50 rounded-full overflow-hidden">
+          <div className="h-2 w-full overflow-hidden rounded-full bg-muted/80">
             <div
               className="h-full bg-rose-500 rounded-full transition-all duration-500"
               style={{ width: `${retiredPct}%` }}

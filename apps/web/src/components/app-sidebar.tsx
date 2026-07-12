@@ -50,8 +50,8 @@ export default function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" variant="sidebar" className="border-r border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-950/40 backdrop-blur-md">
-      <SidebarHeader className="border-b border-zinc-200/20 dark:border-zinc-800/20">
+    <Sidebar collapsible="icon" variant="sidebar" className="border-r border-border bg-card/70 backdrop-blur-md">
+      <SidebarHeader className="border-b border-border/70">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
@@ -64,7 +64,7 @@ export default function AppSidebar() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">TransitOps</span>
+                  <span className="font-semibold tracking-tight text-foreground">TransitOps</span>
                   <span className="text-xs text-muted-foreground">Fleet Platform</span>
                 </div>
               </Link>
@@ -75,16 +75,16 @@ export default function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => {
                 const isActive = routerState.location.pathname === item.href;
                 return (
                   <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.label} className="text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-50 hover:bg-zinc-200/30 dark:hover:bg-zinc-800/30">
+                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.label} className="text-foreground/80 hover:text-foreground hover:bg-muted/60">
                       <Link to={item.href}>
-                        <item.icon className="text-zinc-500 dark:text-zinc-400" />
+                        <item.icon className="text-muted-foreground" />
                         <span className="font-medium text-sm">{item.label}</span>
                       </Link>
                     </SidebarMenuButton>
@@ -96,7 +96,7 @@ export default function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-zinc-200/20 dark:border-zinc-800/20">
+      <SidebarFooter className="border-t border-border/70">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton

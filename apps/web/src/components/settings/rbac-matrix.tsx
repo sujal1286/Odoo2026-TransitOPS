@@ -43,15 +43,15 @@ export default function RbacMatrix() {
   ];
 
   return (
-    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-4">
-      <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
+    <div className="bg-card/85 backdrop-blur-md border border-border/70 rounded-md p-6 space-y-4">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground">
         Role-Based Access (RBAC)
       </h2>
 
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse text-sm">
           <thead>
-            <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider">
+            <tr className="border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               <th className="pb-3 pr-4">ROLE</th>
               <th className="pb-3 px-4 text-center">FLEET</th>
               <th className="pb-3 px-4 text-center">DRIVERS</th>
@@ -60,10 +60,10 @@ export default function RbacMatrix() {
               <th className="pb-3 pl-4 text-center">ANALYTICS</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50">
+          <tbody className="divide-y divide-border/70">
             {roles.map((row) => (
-              <tr key={row.role} className="text-zinc-300">
-                <td className="py-3 pr-4 font-semibold text-zinc-200">{row.role}</td>
+              <tr key={row.role} className="text-foreground">
+                <td className="py-3 pr-4 font-semibold text-foreground">{row.role}</td>
                 <td className="py-3 px-4 text-center">
                   <AccessBadge value={row.fleet} />
                 </td>
@@ -90,12 +90,12 @@ export default function RbacMatrix() {
 
 function AccessBadge({ value }: { value: string }) {
   if (value === "✓") {
-    return <span className="text-emerald-400 font-bold text-sm">{value}</span>;
+    return <span className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">{value}</span>;
   }
   if (value === "—") {
-    return <span className="text-zinc-600 font-medium">{value}</span>;
+    return <span className="text-muted-foreground font-medium">{value}</span>;
   }
   return (
-    <span className="text-amber-400 text-xs font-semibold lowercase">{value}</span>
+    <span className="text-amber-600 dark:text-amber-400 text-xs font-semibold lowercase">{value}</span>
   );
 }

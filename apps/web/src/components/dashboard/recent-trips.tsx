@@ -43,15 +43,15 @@ export default function RecentTrips() {
   });
 
   return (
-    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-5 flex flex-col justify-between">
+    <div className="bg-card/85 backdrop-blur-md border border-border/70 rounded-md p-5 flex flex-col justify-between">
       <div>
-        <h3 className="text-sm font-semibold text-zinc-400 tracking-wide uppercase mb-4">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground mb-4">
           Recent Trips
         </h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider">
+              <tr className="border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                 <th className="pb-3 pr-4">TRIP</th>
                 <th className="pb-3 px-4">VEHICLE</th>
                 <th className="pb-3 px-4">DRIVER</th>
@@ -59,16 +59,16 @@ export default function RecentTrips() {
                 <th className="pb-3 pl-4">ETA</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50 text-sm">
+            <tbody className="divide-y divide-border/70 text-sm">
               {isLoading ? (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-zinc-600">
+                  <td colSpan={5} className="py-8 text-center text-muted-foreground">
                     Loading recent trips...
                   </td>
                 </tr>
               ) : filteredTrips.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-zinc-600">
+                  <td colSpan={5} className="py-8 text-center text-muted-foreground">
                     No recent trips match the filter criteria.
                   </td>
                 </tr>
@@ -78,32 +78,32 @@ export default function RecentTrips() {
                   const driver = drivers?.find((d) => d.id === t.driverId);
                   
                   return (
-                    <tr key={t.id} className="text-zinc-300">
-                      <td className="py-3.5 pr-4 font-semibold text-zinc-200">
+                    <tr key={t.id} className="text-foreground">
+                      <td className="py-3.5 pr-4 font-semibold text-foreground">
                         {t.id.substring(0, 8).toUpperCase()}
                       </td>
-                      <td className="py-3.5 px-4 font-medium">
+                      <td className="py-3.5 px-4 font-medium text-foreground">
                         {vehicle ? vehicle.name : "Unassigned"}
                       </td>
-                      <td className="py-3.5 px-4 text-zinc-400">
+                      <td className="py-3.5 px-4 text-muted-foreground">
                         {driver ? driver.name : "Unassigned"}
                       </td>
                       <td className="py-3.5 px-4">
                         <span
                           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${
                             t.status === "On Trip" || t.status === "Dispatched"
-                              ? "bg-blue-950/40 text-blue-400 border-blue-800/40"
+                              ? "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800/40"
                               : t.status === "Completed"
-                              ? "bg-emerald-950/40 text-emerald-400 border-emerald-800/40"
+                              ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/40"
                               : t.status === "Cancelled"
-                              ? "bg-rose-950/40 text-rose-400 border-rose-800/40"
-                              : "bg-zinc-900/60 text-zinc-400 border-zinc-800"
+                              ? "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800/40"
+                              : "bg-muted/70 text-muted-foreground border-border"
                           }`}
                         >
                           {t.status}
                         </span>
                       </td>
-                      <td className="py-3.5 pl-4 text-zinc-400 font-medium">
+                      <td className="py-3.5 pl-4 text-muted-foreground font-medium">
                         {getEta(t.status)}
                       </td>
                     </tr>

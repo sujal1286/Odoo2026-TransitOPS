@@ -46,14 +46,19 @@ export default function ExpensesPivotTable() {
   const totalOperationalCost = totalFuelCost + totalOtherExpenses;
 
   return (
-    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-4">
-      <h2 className="text-sm font-bold text-zinc-400 tracking-wide uppercase">
-        Other Expenses (Toll / Misc)
-      </h2>
+    <div className="rounded-2xl border border-border/70 bg-card/80 p-5 space-y-4 shadow-sm backdrop-blur-md sm:p-6">
+      <div className="space-y-1">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-foreground">
+          Other Expenses
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Tolls, maintenance links, and non-fuel operating costs rolled up by trip.
+        </p>
+      </div>
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse text-sm">
+        <table className="w-full min-w-[760px] text-left border-collapse text-sm">
           <thead>
-            <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider">
+            <tr className="border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               <th className="pb-3 pr-4">TRIP</th>
               <th className="pb-3 px-4">VEHICLE</th>
               <th className="pb-3 px-4">TOLL</th>
@@ -62,38 +67,38 @@ export default function ExpensesPivotTable() {
               <th className="pb-3 pl-4">TOTAL</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50">
+          <tbody className="divide-y divide-border/70">
             {isExpensesLoading ? (
               <tr>
-                <td colSpan={6} className="py-8 text-center text-zinc-600">
+                <td colSpan={6} className="py-8 text-center text-muted-foreground">
                   Loading expense reports...
                 </td>
               </tr>
             ) : aggregatedExpenses.length === 0 ? (
               <tr>
-                <td colSpan={6} className="py-8 text-center text-zinc-600">
+                <td colSpan={6} className="py-8 text-center text-muted-foreground">
                   No general operational expenses recorded.
                 </td>
               </tr>
             ) : (
               aggregatedExpenses.map((row, idx) => (
-                <tr key={idx} className="text-zinc-300">
-                  <td className="py-3.5 pr-4 font-semibold text-zinc-200">
+                <tr key={idx} className="text-foreground">
+                  <td className="py-3.5 pr-4 font-medium text-foreground">
                     {row.tripId}
                   </td>
-                  <td className="py-3.5 px-4 text-zinc-400">
+                  <td className="py-3.5 px-4 text-muted-foreground">
                     {row.vehicleName}
                   </td>
-                  <td className="py-3.5 px-4 text-zinc-400 font-medium">
+                  <td className="py-3.5 px-4 font-medium text-muted-foreground">
                     ₹{row.toll.toLocaleString()}
                   </td>
-                  <td className="py-3.5 px-4 text-zinc-400 font-medium">
+                  <td className="py-3.5 px-4 font-medium text-muted-foreground">
                     ₹{row.other.toLocaleString()}
                   </td>
-                  <td className="py-3.5 px-4 text-zinc-400 font-medium">
+                  <td className="py-3.5 px-4 font-medium text-muted-foreground">
                     ₹{row.maint.toLocaleString()}
                   </td>
-                  <td className="py-3.5 pl-4 font-semibold text-zinc-200">
+                  <td className="py-3.5 pl-4 font-semibold text-foreground">
                     ₹{row.total.toLocaleString()}
                   </td>
                 </tr>
@@ -103,11 +108,11 @@ export default function ExpensesPivotTable() {
         </table>
       </div>
 
-      <div className="flex items-center justify-between border-t border-zinc-900 pt-5 mt-2">
-        <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+      <div className="flex flex-col gap-2 border-t border-border pt-5 mt-2 sm:flex-row sm:items-center sm:justify-between">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Total Operational Cost (Auto) = Fuel + Maint + Misc
         </span>
-        <span className="text-xl font-bold text-amber-500">
+        <span className="text-2xl font-semibold text-amber-700 dark:text-amber-400">
           ₹{totalOperationalCost.toLocaleString()}
         </span>
       </div>
