@@ -14,7 +14,6 @@ Developed using a monorepo workspace managed by Turborepo with Bun, the platform
 *   **Backend**: [Hono](https://hono.dev/)
 *   **Database**: PostgreSQL & [Prisma ORM](https://www.prisma.io/)
 *   **Authentication**: [Better Auth](https://www.better-auth.com/)
-*   **Emailing**: [Resend](https://resend.com/) & [React Email](https://react.email/)
 *   **Logging**: Winston Logger
 
 ---
