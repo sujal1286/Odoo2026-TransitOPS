@@ -49,7 +49,7 @@ export default function AnalyticsTable() {
   };
 
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md p-6 space-y-4">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-zinc-400 tracking-wide uppercase">
           Vehicle Performance Details
@@ -58,7 +58,7 @@ export default function AnalyticsTable() {
           onClick={handleExportCsv}
           disabled={!analytics || analytics.length === 0}
           size="sm"
-          className="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold text-xs px-3 py-1.5 h-auto flex items-center gap-1.5 border border-zinc-700"
+          className="bg-zinc-800 hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-semibold text-xs px-3 py-1.5 h-auto flex items-center gap-1.5 border border-zinc-700"
         >
           <Download className="h-3.5 w-3.5" />
           <span>Export CSV</span>
@@ -68,7 +68,7 @@ export default function AnalyticsTable() {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse text-sm">
           <thead>
-            <tr className="border-b border-zinc-800 text-[11px] font-bold text-zinc-500 tracking-wider">
+            <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider">
               <th className="pb-3 pr-4">VEHICLE</th>
               <th className="pb-3 px-4">TYPE</th>
               <th className="pb-3 px-4 text-right">DISTANCE</th>
@@ -81,7 +81,7 @@ export default function AnalyticsTable() {
               <th className="pb-3 pl-4 text-right">ROI</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-900">
+          <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50">
             {isLoading ? (
               <tr>
                 <td colSpan={10} className="py-8 text-center text-zinc-600">
@@ -108,7 +108,7 @@ export default function AnalyticsTable() {
                     <td className="py-3 pr-4">
                       <div>
                         <span className="font-semibold text-zinc-200">{v.name}</span>
-                        <span className="block text-[10px] text-zinc-500 font-medium">{v.registrationNumber}</span>
+                        <span className="block text-[10px] text-zinc-500 dark:text-zinc-400 font-medium">{v.registrationNumber}</span>
                       </div>
                     </td>
                     <td className="py-3 px-4 text-zinc-400 font-medium">{v.type}</td>

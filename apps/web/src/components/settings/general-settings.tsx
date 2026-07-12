@@ -3,8 +3,8 @@ import { Label } from "@/components/ui/label";
 
 export default function GeneralSettings() {
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md p-6 space-y-6">
-      <h2 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-6">
+      <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
         General
       </h2>
 
@@ -15,7 +15,7 @@ export default function GeneralSettings() {
             id="depot-name"
             readOnly
             defaultValue="TransitOps Central Depot"
-            className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+            className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
           />
         </div>
 
@@ -25,7 +25,7 @@ export default function GeneralSettings() {
             id="currency"
             readOnly
             defaultValue="INR (₹)"
-            className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+            className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
           />
         </div>
 
@@ -35,7 +35,7 @@ export default function GeneralSettings() {
             id="distance-unit"
             readOnly
             defaultValue="Kilometers"
-            className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+            className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
           />
         </div>
       </div>

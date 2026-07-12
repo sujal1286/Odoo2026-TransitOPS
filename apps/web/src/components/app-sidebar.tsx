@@ -28,13 +28,13 @@ import {
 
 const allNavItems = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, roles: ["FLEET_MANAGER", "DISPATCHER", "SAFETY_OFFICER", "FINANCIAL_ANALYST", "DRIVER"] },
-  { label: "Vehicles", href: "/vehicles", icon: Car, roles: ["FLEET_MANAGER", "DISPATCHER", "SAFETY_OFFICER", "FINANCIAL_ANALYST"] },
-  { label: "Drivers", href: "/drivers", icon: Users, roles: ["FLEET_MANAGER", "SAFETY_OFFICER"] },
-  { label: "Trips", href: "/trips", icon: MapPin, roles: ["FLEET_MANAGER", "DISPATCHER", "SAFETY_OFFICER", "DRIVER"] },
-  { label: "Maintenance", href: "/maintenance", icon: Wrench, roles: ["FLEET_MANAGER"] },
-  { label: "Expenses", href: "/expenses", icon: Receipt, roles: ["FLEET_MANAGER", "DISPATCHER", "FINANCIAL_ANALYST", "DRIVER"] },
-  { label: "Reports", href: "/reports", icon: BarChart3, roles: ["FLEET_MANAGER", "FINANCIAL_ANALYST"] },
-  { label: "Settings", href: "/settings", icon: Settings, roles: ["FLEET_MANAGER", "DISPATCHER", "SAFETY_OFFICER", "FINANCIAL_ANALYST", "DRIVER"] },
+  { label: "Vehicles", href: "/dashboard/vehicles", icon: Car, roles: ["FLEET_MANAGER", "DISPATCHER", "SAFETY_OFFICER", "FINANCIAL_ANALYST"] },
+  { label: "Drivers", href: "/dashboard/drivers", icon: Users, roles: ["FLEET_MANAGER", "SAFETY_OFFICER"] },
+  { label: "Trips", href: "/dashboard/trips", icon: MapPin, roles: ["FLEET_MANAGER", "DISPATCHER", "SAFETY_OFFICER", "DRIVER"] },
+  { label: "Maintenance", href: "/dashboard/maintenance", icon: Wrench, roles: ["FLEET_MANAGER"] },
+  { label: "Expenses", href: "/dashboard/expenses", icon: Receipt, roles: ["FLEET_MANAGER", "DISPATCHER", "FINANCIAL_ANALYST", "DRIVER"] },
+  { label: "Reports", href: "/dashboard/reports", icon: BarChart3, roles: ["FLEET_MANAGER", "FINANCIAL_ANALYST"] },
+  { label: "Settings", href: "/dashboard/settings", icon: Settings, roles: ["FLEET_MANAGER", "DISPATCHER", "SAFETY_OFFICER", "FINANCIAL_ANALYST", "DRIVER"] },
 ];
 
 export default function AppSidebar() {
@@ -50,8 +50,8 @@ export default function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" variant="sidebar">
-      <SidebarHeader>
+    <Sidebar collapsible="icon" variant="sidebar" className="border-r border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-950/40 backdrop-blur-md">
+      <SidebarHeader className="border-b border-zinc-200/20 dark:border-zinc-800/20">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
@@ -64,7 +64,7 @@ export default function AppSidebar() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold tracking-tight">TransitOps</span>
+                  <span className="font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">TransitOps</span>
                   <span className="text-xs text-muted-foreground">Fleet Platform</span>
                 </div>
               </Link>
@@ -75,17 +75,17 @@ export default function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => {
                 const isActive = routerState.location.pathname === item.href;
                 return (
                   <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
+                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.label} className="text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-50 hover:bg-zinc-200/30 dark:hover:bg-zinc-800/30">
                       <Link to={item.href}>
-                        <item.icon />
-                        <span>{item.label}</span>
+                        <item.icon className="text-zinc-500 dark:text-zinc-400" />
+                        <span className="font-medium text-sm">{item.label}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -96,13 +96,13 @@ export default function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter>
+      <SidebarFooter className="border-t border-zinc-200/20 dark:border-zinc-800/20">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={handleLogout}
               tooltip="Sign Out"
-              className="text-red-500 hover:text-red-400 hover:bg-red-950/30"
+              className="text-red-500 hover:text-red-400 hover:bg-red-950/30 font-semibold"
             >
               <LogOut />
               <span>Sign Out</span>

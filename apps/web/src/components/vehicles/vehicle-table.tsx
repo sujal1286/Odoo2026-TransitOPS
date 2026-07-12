@@ -15,11 +15,11 @@ export default function VehicleTable({ vehicles, onEditClick }: VehicleTableProp
   };
 
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md overflow-hidden">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-zinc-800 text-[11px] font-bold text-zinc-500 tracking-wider uppercase bg-[#141416]/50">
+            <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider uppercase bg-[#141416]/50">
               <th className="py-4 px-6">Reg. No. (Unique)</th>
               <th className="py-4 px-6">Name/Model</th>
               <th className="py-4 px-6">Type</th>
@@ -30,7 +30,7 @@ export default function VehicleTable({ vehicles, onEditClick }: VehicleTableProp
               <th className="py-4 px-6 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-900 text-sm">
+          <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50 text-sm">
             {vehicles.length === 0 ? (
               <tr>
                 <td colSpan={8} className="py-12 text-center text-zinc-500">
@@ -39,11 +39,11 @@ export default function VehicleTable({ vehicles, onEditClick }: VehicleTableProp
               </tr>
             ) : (
               vehicles.map((v) => (
-                <tr key={v.id} className="text-zinc-300 hover:bg-zinc-900/25 transition-colors">
+                <tr key={v.id} className="text-zinc-700 dark:text-zinc-300 hover:bg-zinc-900/25 transition-colors">
                   <td className="py-4 px-6 font-semibold text-zinc-200">{v.registrationNumber}</td>
                   <td className="py-4 px-6 font-medium">{v.name}</td>
                   <td className="py-4 px-6 text-zinc-400">{v.type}</td>
-                  <td className="py-4 px-6 text-zinc-300 font-medium">{formatCapacity(v.maxLoadCapacity)}</td>
+                  <td className="py-4 px-6 text-zinc-700 dark:text-zinc-300 font-medium">{formatCapacity(v.maxLoadCapacity)}</td>
                   <td className="py-4 px-6 text-zinc-400">{v.odometer.toLocaleString()} km</td>
                   <td className="py-4 px-6 text-zinc-400">₹{v.acquisitionCost.toLocaleString()}</td>
                   <td className="py-4 px-6">
@@ -75,7 +75,7 @@ export default function VehicleTable({ vehicles, onEditClick }: VehicleTableProp
           </tbody>
         </table>
       </div>
-      <div className="px-6 py-3 border-t border-zinc-800 bg-[#141416]/20">
+      <div className="px-6 py-3 border-t border-zinc-200/50 dark:border-zinc-800/50 bg-[#141416]/20">
         <p className="text-xs text-amber-600 font-medium">
           Rule: Registration No. must be unique · Retired/In Shop vehicles are hidden from Trip Dispatcher
         </p>

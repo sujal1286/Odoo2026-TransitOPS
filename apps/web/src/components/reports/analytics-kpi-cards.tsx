@@ -60,7 +60,7 @@ export default function AnalyticsKpiCards() {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="bg-[#111113] border border-zinc-800 rounded-md p-5 h-24 animate-pulse" />
+          <div key={i} className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-5 h-24 animate-pulse" />
         ))}
       </div>
     );
@@ -71,15 +71,15 @@ export default function AnalyticsKpiCards() {
       {cards.map((card) => (
         <div
           key={card.label}
-          className={`bg-[#111113] border-l-4 ${card.accent} border border-zinc-800 rounded-md p-5 flex flex-col gap-2`}
+          className={`bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border-l-4 ${card.accent} border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-5 flex flex-col gap-2`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-zinc-500 tracking-wider uppercase">
+            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider uppercase">
               {card.label}
             </span>
             <card.icon className="h-4 w-4 text-zinc-600" />
           </div>
-          <span className="text-2xl font-bold text-zinc-100 tracking-tight">
+          <span className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
             {card.value}
           </span>
         </div>

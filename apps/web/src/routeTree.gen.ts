@@ -9,58 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VehiclesRouteImport } from './routes/vehicles'
-import { Route as TripsRouteImport } from './routes/trips'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as ReportsRouteImport } from './routes/reports'
-import { Route as MaintenanceRouteImport } from './routes/maintenance'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as ExpensesRouteImport } from './routes/expenses'
-import { Route as DriversRouteImport } from './routes/drivers'
-import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardVehiclesRouteImport } from './routes/dashboard/vehicles'
+import { Route as DashboardTripsRouteImport } from './routes/dashboard/trips'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
+import { Route as DashboardReportsRouteImport } from './routes/dashboard/reports'
+import { Route as DashboardMaintenanceRouteImport } from './routes/dashboard/maintenance'
+import { Route as DashboardExpensesRouteImport } from './routes/dashboard/expenses'
+import { Route as DashboardDriversRouteImport } from './routes/dashboard/drivers'
 
-const VehiclesRoute = VehiclesRouteImport.update({
-  id: '/vehicles',
-  path: '/vehicles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TripsRoute = TripsRouteImport.update({
-  id: '/trips',
-  path: '/trips',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReportsRoute = ReportsRouteImport.update({
-  id: '/reports',
-  path: '/reports',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MaintenanceRoute = MaintenanceRouteImport.update({
-  id: '/maintenance',
-  path: '/maintenance',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ExpensesRoute = ExpensesRouteImport.update({
-  id: '/expenses',
-  path: '/expenses',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DriversRoute = DriversRouteImport.update({
-  id: '/drivers',
-  path: '/drivers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
+const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
@@ -70,133 +36,135 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardVehiclesRoute = DashboardVehiclesRouteImport.update({
+  id: '/vehicles',
+  path: '/vehicles',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardTripsRoute = DashboardTripsRouteImport.update({
+  id: '/trips',
+  path: '/trips',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardReportsRoute = DashboardReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardMaintenanceRoute = DashboardMaintenanceRouteImport.update({
+  id: '/maintenance',
+  path: '/maintenance',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardExpensesRoute = DashboardExpensesRouteImport.update({
+  id: '/expenses',
+  path: '/expenses',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardDriversRoute = DashboardDriversRouteImport.update({
+  id: '/drivers',
+  path: '/drivers',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/drivers': typeof DriversRoute
-  '/expenses': typeof ExpensesRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof LoginRoute
-  '/maintenance': typeof MaintenanceRoute
-  '/reports': typeof ReportsRoute
-  '/settings': typeof SettingsRoute
-  '/trips': typeof TripsRoute
-  '/vehicles': typeof VehiclesRoute
+  '/dashboard/drivers': typeof DashboardDriversRoute
+  '/dashboard/expenses': typeof DashboardExpensesRoute
+  '/dashboard/maintenance': typeof DashboardMaintenanceRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/trips': typeof DashboardTripsRoute
+  '/dashboard/vehicles': typeof DashboardVehiclesRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/drivers': typeof DriversRoute
-  '/expenses': typeof ExpensesRoute
   '/login': typeof LoginRoute
-  '/maintenance': typeof MaintenanceRoute
-  '/reports': typeof ReportsRoute
-  '/settings': typeof SettingsRoute
-  '/trips': typeof TripsRoute
-  '/vehicles': typeof VehiclesRoute
+  '/dashboard/drivers': typeof DashboardDriversRoute
+  '/dashboard/expenses': typeof DashboardExpensesRoute
+  '/dashboard/maintenance': typeof DashboardMaintenanceRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/trips': typeof DashboardTripsRoute
+  '/dashboard/vehicles': typeof DashboardVehiclesRoute
+  '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/drivers': typeof DriversRoute
-  '/expenses': typeof ExpensesRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof LoginRoute
-  '/maintenance': typeof MaintenanceRoute
-  '/reports': typeof ReportsRoute
-  '/settings': typeof SettingsRoute
-  '/trips': typeof TripsRoute
-  '/vehicles': typeof VehiclesRoute
+  '/dashboard/drivers': typeof DashboardDriversRoute
+  '/dashboard/expenses': typeof DashboardExpensesRoute
+  '/dashboard/maintenance': typeof DashboardMaintenanceRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/trips': typeof DashboardTripsRoute
+  '/dashboard/vehicles': typeof DashboardVehiclesRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/dashboard'
-    | '/drivers'
-    | '/expenses'
     | '/login'
-    | '/maintenance'
-    | '/reports'
-    | '/settings'
-    | '/trips'
-    | '/vehicles'
+    | '/dashboard/drivers'
+    | '/dashboard/expenses'
+    | '/dashboard/maintenance'
+    | '/dashboard/reports'
+    | '/dashboard/settings'
+    | '/dashboard/trips'
+    | '/dashboard/vehicles'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/dashboard'
-    | '/drivers'
-    | '/expenses'
     | '/login'
-    | '/maintenance'
-    | '/reports'
-    | '/settings'
-    | '/trips'
-    | '/vehicles'
+    | '/dashboard/drivers'
+    | '/dashboard/expenses'
+    | '/dashboard/maintenance'
+    | '/dashboard/reports'
+    | '/dashboard/settings'
+    | '/dashboard/trips'
+    | '/dashboard/vehicles'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
-    | '/drivers'
-    | '/expenses'
     | '/login'
-    | '/maintenance'
-    | '/reports'
-    | '/settings'
-    | '/trips'
-    | '/vehicles'
+    | '/dashboard/drivers'
+    | '/dashboard/expenses'
+    | '/dashboard/maintenance'
+    | '/dashboard/reports'
+    | '/dashboard/settings'
+    | '/dashboard/trips'
+    | '/dashboard/vehicles'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DashboardRoute: typeof DashboardRoute
-  DriversRoute: typeof DriversRoute
-  ExpensesRoute: typeof ExpensesRoute
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
-  MaintenanceRoute: typeof MaintenanceRoute
-  ReportsRoute: typeof ReportsRoute
-  SettingsRoute: typeof SettingsRoute
-  TripsRoute: typeof TripsRoute
-  VehiclesRoute: typeof VehiclesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/vehicles': {
-      id: '/vehicles'
-      path: '/vehicles'
-      fullPath: '/vehicles'
-      preLoaderRoute: typeof VehiclesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/trips': {
-      id: '/trips'
-      path: '/trips'
-      fullPath: '/trips'
-      preLoaderRoute: typeof TripsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reports': {
-      id: '/reports'
-      path: '/reports'
-      fullPath: '/reports'
-      preLoaderRoute: typeof ReportsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/maintenance': {
-      id: '/maintenance'
-      path: '/maintenance'
-      fullPath: '/maintenance'
-      preLoaderRoute: typeof MaintenanceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -204,25 +172,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/expenses': {
-      id: '/expenses'
-      path: '/expenses'
-      fullPath: '/expenses'
-      preLoaderRoute: typeof ExpensesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/drivers': {
-      id: '/drivers'
-      path: '/drivers'
-      fullPath: '/drivers'
-      preLoaderRoute: typeof DriversRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
+      preLoaderRoute: typeof DashboardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -232,20 +186,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/vehicles': {
+      id: '/dashboard/vehicles'
+      path: '/vehicles'
+      fullPath: '/dashboard/vehicles'
+      preLoaderRoute: typeof DashboardVehiclesRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/trips': {
+      id: '/dashboard/trips'
+      path: '/trips'
+      fullPath: '/dashboard/trips'
+      preLoaderRoute: typeof DashboardTripsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/reports': {
+      id: '/dashboard/reports'
+      path: '/reports'
+      fullPath: '/dashboard/reports'
+      preLoaderRoute: typeof DashboardReportsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/maintenance': {
+      id: '/dashboard/maintenance'
+      path: '/maintenance'
+      fullPath: '/dashboard/maintenance'
+      preLoaderRoute: typeof DashboardMaintenanceRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/expenses': {
+      id: '/dashboard/expenses'
+      path: '/expenses'
+      fullPath: '/dashboard/expenses'
+      preLoaderRoute: typeof DashboardExpensesRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/drivers': {
+      id: '/dashboard/drivers'
+      path: '/drivers'
+      fullPath: '/dashboard/drivers'
+      preLoaderRoute: typeof DashboardDriversRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
   }
 }
 
+interface DashboardRouteRouteChildren {
+  DashboardDriversRoute: typeof DashboardDriversRoute
+  DashboardExpensesRoute: typeof DashboardExpensesRoute
+  DashboardMaintenanceRoute: typeof DashboardMaintenanceRoute
+  DashboardReportsRoute: typeof DashboardReportsRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardTripsRoute: typeof DashboardTripsRoute
+  DashboardVehiclesRoute: typeof DashboardVehiclesRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardDriversRoute: DashboardDriversRoute,
+  DashboardExpensesRoute: DashboardExpensesRoute,
+  DashboardMaintenanceRoute: DashboardMaintenanceRoute,
+  DashboardReportsRoute: DashboardReportsRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardTripsRoute: DashboardTripsRoute,
+  DashboardVehiclesRoute: DashboardVehiclesRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
+  DashboardRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DashboardRoute: DashboardRoute,
-  DriversRoute: DriversRoute,
-  ExpensesRoute: ExpensesRoute,
+  DashboardRouteRoute: DashboardRouteRouteWithChildren,
   LoginRoute: LoginRoute,
-  MaintenanceRoute: MaintenanceRoute,
-  ReportsRoute: ReportsRoute,
-  SettingsRoute: SettingsRoute,
-  TripsRoute: TripsRoute,
-  VehiclesRoute: VehiclesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

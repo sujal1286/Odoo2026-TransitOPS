@@ -61,7 +61,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <div className="space-y-1.5">
-          <Label htmlFor="email" className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">
+          <Label htmlFor="email" className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">
             Email
           </Label>
           <Input
@@ -69,7 +69,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
             type="email"
             placeholder="name@transitops.in"
             {...register("email")}
-            className="bg-[#111113] border-zinc-800 text-zinc-200 focus-visible:ring-amber-700/50"
+            className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border-zinc-800 text-zinc-800 dark:text-zinc-200 focus-visible:ring-amber-700/50"
           />
           {errors.email && (
             <p className="text-red-500 text-xs mt-1">
@@ -79,7 +79,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="password" className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">
+          <Label htmlFor="password" className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">
             Password
           </Label>
           <Input
@@ -87,7 +87,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
             type="password"
             placeholder="••••••••"
             {...register("password")}
-            className="bg-[#111113] border-zinc-800 text-zinc-200 focus-visible:ring-amber-700/50"
+            className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border-zinc-800 text-zinc-800 dark:text-zinc-200 focus-visible:ring-amber-700/50"
           />
           {errors.password && (
             <p className="text-red-500 text-xs mt-1">

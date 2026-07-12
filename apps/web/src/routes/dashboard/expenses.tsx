@@ -1,25 +1,15 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Fuel, Receipt } from "lucide-react";
 
-import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import FuelLogsTable from "@/components/expenses/fuel-logs-table";
 import ExpensesPivotTable from "@/components/expenses/expenses-pivot-table";
 import FuelModal from "@/components/expenses/fuel-modal";
 import ExpenseModal from "@/components/expenses/expense-modal";
 
-export const Route = createFileRoute("/expenses")({
+export const Route = createFileRoute("/dashboard/expenses")({
   component: ExpensesPage,
-  beforeLoad: async () => {
-    const session = await authClient.getSession();
-    if (!session.data) {
-      throw redirect({
-        to: "/login",
-      });
-    }
-    return { session };
-  },
 });
 
 function ExpensesPage() {
@@ -27,11 +17,11 @@ function ExpensesPage() {
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
 
   return (
-    <div className="p-6 space-y-6 bg-zinc-950 text-zinc-100 min-h-screen">
+    <div className="p-6 space-y-6 min-h-screen">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-1">
-          <h1 className="text-xl font-bold text-zinc-100">Fuel & Expense Management</h1>
-          <p className="text-xs text-zinc-500">Log purchases and track operational expenditure across fleet assets</p>
+          <h1 className="text-xl font-bold">Fuel & Expense Management</h1>
+          <p className="text-xs text-muted-foreground">Log purchases and track operational expenditure across fleet assets</p>
         </div>
         <div className="flex items-center gap-3">
           <Button

@@ -12,9 +12,9 @@ function RouteComponent() {
   const [showSignIn, setShowSignIn] = useState(true);
 
   return (
-    <div className="grid min-h-[100dvh] w-full lg:grid-cols-2 bg-zinc-950 text-zinc-50 font-sans">
+    <div className="grid min-h-[100dvh] w-full lg:grid-cols-2 bg-zinc-100 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans">
       {/* Left Pane - Light Theme */}
-      <div className="hidden flex-col bg-[#cfd4d8] text-zinc-900 lg:flex p-12 lg:p-24 justify-between">
+      <div className="hidden flex-col bg-zinc-200/80 dark:bg-zinc-900/60 backdrop-blur-md text-zinc-900 dark:text-zinc-100 lg:flex p-12 lg:p-24 justify-between">
         <div>
           <div className="flex items-center gap-3 mb-4">
             {/* Mock Logo */}
@@ -60,7 +60,7 @@ function RouteComponent() {
       </div>
 
       {/* Right Pane - Dark Theme */}
-      <div className="flex flex-col items-center justify-center p-8 lg:p-24 bg-[#111113]">
+      <div className="flex flex-col items-center justify-center p-8 lg:p-24 bg-white/40 dark:bg-zinc-950/60 backdrop-blur-md">
         <div className="w-full max-w-[400px]">
           <h2 className="text-3xl font-medium tracking-tight mb-2 text-zinc-100">
             {showSignIn ? "Sign in to your account" : "Create an account"}

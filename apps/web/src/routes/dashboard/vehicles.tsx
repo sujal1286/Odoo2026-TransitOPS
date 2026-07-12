@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createFileRoute, redirect } from "@tanstack/react-router";
-import { authClient } from "@/lib/auth-client";
+import { createFileRoute } from "@tanstack/react-router";
+
 import { useVehiclesQuery } from "@/queries/vehicles";
 import type { Vehicle } from "@/queries/vehicles";
 import { useVehicleStore } from "@/store/useVehicleStore";
@@ -8,17 +8,8 @@ import VehicleFilters from "@/components/vehicles/vehicle-filters";
 import VehicleTable from "@/components/vehicles/vehicle-table";
 import VehicleDialog from "@/components/vehicles/vehicle-dialog";
 
-export const Route = createFileRoute("/vehicles")({
+export const Route = createFileRoute("/dashboard/vehicles")({
   component: VehiclesRegistryComponent,
-  beforeLoad: async () => {
-    const session = await authClient.getSession();
-    if (!session.data) {
-      throw redirect({
-        to: "/login",
-      });
-    }
-    return { session };
-  },
 });
 
 function VehiclesRegistryComponent() {
@@ -53,10 +44,10 @@ function VehiclesRegistryComponent() {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-zinc-950 text-zinc-100 min-h-screen">
+    <div className="p-6 space-y-6 min-h-screen">
       <div className="flex flex-col gap-1">
-        <h1 className="text-xl font-bold text-zinc-100">Vehicle Registry</h1>
-        <p className="text-xs text-zinc-500">Manage your transport assets and operational statuses</p>
+        <h1 className="text-xl font-bold">Vehicle Registry</h1>
+        <p className="text-xs text-muted-foreground">Manage your transport assets and operational statuses</p>
       </div>
 
       <VehicleFilters
@@ -65,7 +56,7 @@ function VehiclesRegistryComponent() {
       />
 
       {isLoading ? (
-        <div className="py-20 text-center text-zinc-500 text-sm">
+        <div className="py-20 text-center text-muted-foreground text-sm">
           Loading vehicles registry...
         </div>
       ) : (

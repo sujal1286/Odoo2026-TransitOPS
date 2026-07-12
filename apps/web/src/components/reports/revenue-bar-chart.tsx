@@ -33,13 +33,13 @@ export default function RevenueBarChart() {
 
   if (isLoading) {
     return (
-      <div className="bg-[#111113] border border-zinc-800 rounded-md p-6 h-80 animate-pulse" />
+      <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 h-80 animate-pulse" />
     );
   }
 
   if (chartData.length === 0) {
     return (
-      <div className="bg-[#111113] border border-zinc-800 rounded-md p-6">
+      <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6">
         <h3 className="text-sm font-bold text-zinc-400 tracking-wide uppercase mb-4">
           Revenue by Vehicle
         </h3>
@@ -51,7 +51,7 @@ export default function RevenueBarChart() {
   }
 
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md p-6">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6">
       <h3 className="text-sm font-bold text-zinc-400 tracking-wide uppercase mb-4">
         Revenue by Vehicle
       </h3>

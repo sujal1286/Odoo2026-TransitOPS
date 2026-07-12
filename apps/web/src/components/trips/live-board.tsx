@@ -40,15 +40,15 @@ export default function LiveBoard() {
   };
 
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md p-6 space-y-6">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-6">
       <div className="border-b border-zinc-900 pb-4">
-        <h2 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+        <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
           Live Board
         </h2>
       </div>
 
       {isLoading ? (
-        <div className="py-20 text-center text-zinc-500 text-sm">
+        <div className="py-20 text-center text-zinc-500 dark:text-zinc-400 text-sm">
           Loading live trips...
         </div>
       ) : (
@@ -72,7 +72,7 @@ export default function LiveBoard() {
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-zinc-200 uppercase tracking-wide">
+                      <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide">
                         {t.id.substring(0, 8).toUpperCase()}
                       </span>
                       <span className="text-[10px] text-zinc-500">•</span>
@@ -80,7 +80,7 @@ export default function LiveBoard() {
                         {getVehicleDriverText(t.vehicleId, t.driverId)}
                       </span>
                     </div>
-                    <p className="text-sm text-zinc-300 font-medium">
+                    <p className="text-sm text-zinc-700 dark:text-zinc-300 font-medium">
                       {t.source} &rarr; {t.destination}
                     </p>
                   </div>
@@ -99,7 +99,7 @@ export default function LiveBoard() {
                     >
                       {t.status}
                     </span>
-                    <span className="text-xs text-zinc-500 font-medium capitalize">
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium capitalize">
                       {getSubtext(t.status)}
                     </span>
                   </div>
@@ -110,7 +110,7 @@ export default function LiveBoard() {
         </div>
       )}
 
-      <p className="text-xs text-zinc-500 font-medium border-t border-zinc-900 pt-4 text-center">
+      <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium border-t border-zinc-900 pt-4 text-center">
         On Complete: odometer &rarr; fuel log &rarr; expenses &rarr; Vehicle & Driver Available
       </p>
     </div>

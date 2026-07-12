@@ -43,7 +43,7 @@ export default function RecentTrips() {
   });
 
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md p-5 flex flex-col justify-between">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-5 flex flex-col justify-between">
       <div>
         <h3 className="text-sm font-semibold text-zinc-400 tracking-wide uppercase mb-4">
           Recent Trips
@@ -51,7 +51,7 @@ export default function RecentTrips() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-zinc-800 text-[11px] font-bold text-zinc-500 tracking-wider">
+              <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider">
                 <th className="pb-3 pr-4">TRIP</th>
                 <th className="pb-3 px-4">VEHICLE</th>
                 <th className="pb-3 px-4">DRIVER</th>
@@ -59,7 +59,7 @@ export default function RecentTrips() {
                 <th className="pb-3 pl-4">ETA</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-900 text-sm">
+            <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50 text-sm">
               {isLoading ? (
                 <tr>
                   <td colSpan={5} className="py-8 text-center text-zinc-600">

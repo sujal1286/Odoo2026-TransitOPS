@@ -56,9 +56,9 @@ export default function ServiceRecordForm() {
   };
 
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md p-6 space-y-6">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-6">
       <div className="border-b border-zinc-900 pb-4">
-        <h2 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+        <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
           Log Service Record
         </h2>
       </div>
@@ -80,7 +80,7 @@ export default function ServiceRecordForm() {
             id="vehicleId"
             disabled={!isFleetManager}
             {...register("vehicleId")}
-            className="w-full appearance-none bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full appearance-none bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-800 dark:text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <option value="">Select vehicle...</option>
             {vehicles?.map((v) => (
@@ -103,7 +103,7 @@ export default function ServiceRecordForm() {
             placeholder="e.g. Oil Change, Engine Repair"
             disabled={!isFleetManager}
             {...register("description")}
-            className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
+            className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
           />
           {errors.description && (
             <p className="text-red-500 text-xs">
@@ -119,7 +119,7 @@ export default function ServiceRecordForm() {
             type="number"
             disabled={!isFleetManager}
             {...register("cost", { valueAsNumber: true })}
-            className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
+            className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
           />
           {errors.cost && (
             <p className="text-red-500 text-xs">
@@ -135,7 +135,7 @@ export default function ServiceRecordForm() {
             type="date"
             disabled={!isFleetManager}
             {...register("startDate")}
-            className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
+            className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
           />
           {errors.startDate && (
             <p className="text-red-500 text-xs">
@@ -146,7 +146,7 @@ export default function ServiceRecordForm() {
 
         <div className="space-y-1">
           <Label className="text-[11px] text-zinc-400">Servicing Status</Label>
-          <div className="bg-zinc-900/60 border border-zinc-800/60 text-zinc-400 text-sm px-3 py-2 rounded-md font-semibold select-none">
+          <div className="bg-zinc-100/60 dark:bg-zinc-900/60 border border-zinc-200/50 dark:border-zinc-800/50/60 text-zinc-400 text-sm px-3 py-2 rounded-md font-semibold select-none">
             Active (In Shop)
           </div>
         </div>
@@ -160,7 +160,7 @@ export default function ServiceRecordForm() {
         </Button>
       </form>
 
-      <div className="border-t border-zinc-900 pt-4 space-y-2 text-[10px] text-zinc-500 font-medium">
+      <div className="border-t border-zinc-900 pt-4 space-y-2 text-[10px] text-zinc-500 dark:text-zinc-400 font-medium">
         <div className="flex items-center gap-1.5">
           <span className="text-emerald-500">Available</span>
           <ArrowRight className="h-3 w-3" />

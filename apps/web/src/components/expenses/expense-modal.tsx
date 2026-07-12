@@ -66,9 +66,9 @@ export default function ExpenseModal({ isOpen, onClose }: ExpenseModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-[#111113] border border-zinc-800 rounded-lg max-w-md w-full shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800">
-          <h3 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+      <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-lg max-w-md w-full shadow-2xl overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200/50 dark:border-zinc-800/50">
+          <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
             Log Operating Expense
           </h3>
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300">
@@ -93,7 +93,7 @@ export default function ExpenseModal({ isOpen, onClose }: ExpenseModalProps) {
               id="exp-vehicle"
               disabled={!isExpenseAllowed}
               {...register("vehicleId")}
-              className="w-full appearance-none bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer disabled:opacity-50"
+              className="w-full appearance-none bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-800 dark:text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer disabled:opacity-50"
             >
               <option value="">Select vehicle...</option>
               {vehicles?.map((v) => (
@@ -115,7 +115,7 @@ export default function ExpenseModal({ isOpen, onClose }: ExpenseModalProps) {
               id="exp-trip"
               disabled={!isExpenseAllowed}
               {...register("tripId")}
-              className="w-full appearance-none bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer disabled:opacity-50"
+              className="w-full appearance-none bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-800 dark:text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer disabled:opacity-50"
             >
               <option value="">None / Select Trip...</option>
               {trips?.map((t) => (
@@ -134,7 +134,7 @@ export default function ExpenseModal({ isOpen, onClose }: ExpenseModalProps) {
                 type="number"
                 disabled={!isExpenseAllowed}
                 {...register("amount", { valueAsNumber: true })}
-                className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
+                className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
               />
               {errors.amount && (
                 <p className="text-red-500 text-xs">
@@ -149,7 +149,7 @@ export default function ExpenseModal({ isOpen, onClose }: ExpenseModalProps) {
                 id="exp-category"
                 disabled={!isExpenseAllowed}
                 {...register("category")}
-                className="w-full appearance-none bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer disabled:opacity-50"
+                className="w-full appearance-none bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-800 dark:text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer disabled:opacity-50"
               >
                 <option value="Tolls">Tolls</option>
                 <option value="Food">Food</option>
@@ -172,7 +172,7 @@ export default function ExpenseModal({ isOpen, onClose }: ExpenseModalProps) {
               placeholder="e.g. Highway tolls, lunch allowance"
               disabled={!isExpenseAllowed}
               {...register("description")}
-              className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
+              className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
             />
             {errors.description && (
               <p className="text-red-500 text-xs">
@@ -188,7 +188,7 @@ export default function ExpenseModal({ isOpen, onClose }: ExpenseModalProps) {
               type="date"
               disabled={!isExpenseAllowed}
               {...register("date")}
-              className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
+              className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50 disabled:opacity-50"
             />
             {errors.date && (
               <p className="text-red-500 text-xs">
@@ -197,11 +197,11 @@ export default function ExpenseModal({ isOpen, onClose }: ExpenseModalProps) {
             )}
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-800">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-200/50 dark:border-zinc-800/50">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="px-4 py-2 text-sm text-zinc-400 hover:text-zinc-800 dark:text-zinc-200 transition-colors"
             >
               Cancel
             </button>

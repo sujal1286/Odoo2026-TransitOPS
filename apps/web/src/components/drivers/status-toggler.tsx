@@ -24,7 +24,7 @@ export default function StatusToggler() {
 
   if (!driver) {
     return (
-      <div className="bg-[#111113] border border-zinc-800 rounded-md p-5 text-center text-zinc-500 text-sm">
+      <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-5 text-center text-zinc-500 dark:text-zinc-400 text-sm">
         Select a driver from the table above to toggle operational status.
       </div>
     );
@@ -38,9 +38,9 @@ export default function StatusToggler() {
   ];
 
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md p-5 space-y-4">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-5 space-y-4">
       <div className="space-y-1">
-        <h4 className="text-xs font-bold text-zinc-500 tracking-wider uppercase">
+        <h4 className="text-xs font-bold text-zinc-500 dark:text-zinc-400 tracking-wider uppercase">
           Toggle Status for {driver.name}
         </h4>
       </div>

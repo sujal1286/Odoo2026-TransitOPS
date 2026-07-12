@@ -31,11 +31,11 @@ export default function DriverTable({ drivers }: DriverTableProps) {
   };
 
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md overflow-hidden">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-zinc-800 text-[11px] font-bold text-zinc-500 tracking-wider uppercase bg-[#141416]/50">
+            <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider uppercase bg-[#141416]/50">
               <th className="py-4 px-6">Driver</th>
               <th className="py-4 px-6">License No.</th>
               <th className="py-4 px-6">Category</th>
@@ -46,7 +46,7 @@ export default function DriverTable({ drivers }: DriverTableProps) {
               <th className="py-4 px-6">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-900 text-sm">
+          <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50 text-sm">
             {drivers.length === 0 ? (
               <tr>
                 <td colSpan={8} className="py-12 text-center text-zinc-500">
@@ -65,7 +65,7 @@ export default function DriverTable({ drivers }: DriverTableProps) {
                     className={`cursor-pointer transition-colors ${
                       isSelected
                         ? "bg-zinc-800/40 border-l-4 border-amber-600/80"
-                        : "text-zinc-300 hover:bg-zinc-900/25"
+                        : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-900/25"
                     }`}
                   >
                     <td className="py-4 px-6 font-semibold text-zinc-200">{d.name}</td>
@@ -75,7 +75,7 @@ export default function DriverTable({ drivers }: DriverTableProps) {
                       {expiryText}
                     </td>
                     <td className="py-4 px-6 text-zinc-400">{d.contactNumber}</td>
-                    <td className="py-4 px-6 text-zinc-300 font-semibold">96%</td>
+                    <td className="py-4 px-6 text-zinc-700 dark:text-zinc-300 font-semibold">96%</td>
                     <td className="py-4 px-6">
                       <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-950/20 text-emerald-400 border border-emerald-800/20">
                         {d.safetyScore}%

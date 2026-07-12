@@ -6,21 +6,21 @@ export default function FuelLogsTable() {
   const { data: fuelLogs, isLoading: isFuelLoading } = useFuelLogsQuery();
 
   return (
-    <div className="bg-[#111113] border border-zinc-800 rounded-md p-6 space-y-4">
+    <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-md p-6 space-y-4">
       <h2 className="text-sm font-bold text-zinc-400 tracking-wide uppercase">
         Fuel Logs
       </h2>
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse text-sm">
           <thead>
-            <tr className="border-b border-zinc-800 text-[11px] font-bold text-zinc-500 tracking-wider">
+            <tr className="border-b border-zinc-200/50 dark:border-zinc-800/50 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 tracking-wider">
               <th className="pb-3 pr-4">VEHICLE</th>
               <th className="pb-3 px-4">DATE</th>
               <th className="pb-3 px-4">LITERS</th>
               <th className="pb-3 pl-4">COST</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-900">
+          <tbody className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50">
             {isFuelLoading ? (
               <tr>
                 <td colSpan={4} className="py-8 text-center text-zinc-600">

@@ -55,8 +55,8 @@ export default function DriverDialog({ isOpen, onClose }: DriverDialogProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-[#111113] border border-zinc-800 rounded-lg max-w-lg w-full shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800">
+      <div className="bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-lg max-w-lg w-full shadow-2xl overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200/50 dark:border-zinc-800/50">
           <h2 className="text-lg font-bold text-zinc-100">Register New Driver</h2>
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300">
             <X className="h-5 w-5" />
@@ -70,7 +70,7 @@ export default function DriverDialog({ isOpen, onClose }: DriverDialogProps) {
               <Input
                 id="name"
                 {...register("name")}
-                className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+                className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
               />
               {errors.name && (
                 <p className="text-red-500 text-xs">
@@ -84,7 +84,7 @@ export default function DriverDialog({ isOpen, onClose }: DriverDialogProps) {
               <Input
                 id="licenseNumber"
                 {...register("licenseNumber")}
-                className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+                className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
               />
               {errors.licenseNumber && (
                 <p className="text-red-500 text-xs">
@@ -101,7 +101,7 @@ export default function DriverDialog({ isOpen, onClose }: DriverDialogProps) {
                 id="licenseCategory"
                 placeholder="e.g. LMV, HMV"
                 {...register("licenseCategory")}
-                className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+                className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
               />
               {errors.licenseCategory && (
                 <p className="text-red-500 text-xs">
@@ -116,7 +116,7 @@ export default function DriverDialog({ isOpen, onClose }: DriverDialogProps) {
                 id="licenseExpiryDate"
                 type="date"
                 {...register("licenseExpiryDate")}
-                className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+                className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
               />
               {errors.licenseExpiryDate && (
                 <p className="text-red-500 text-xs">
@@ -132,7 +132,7 @@ export default function DriverDialog({ isOpen, onClose }: DriverDialogProps) {
               <Input
                 id="contactNumber"
                 {...register("contactNumber")}
-                className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+                className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
               />
               {errors.contactNumber && (
                 <p className="text-red-500 text-xs">
@@ -147,7 +147,7 @@ export default function DriverDialog({ isOpen, onClose }: DriverDialogProps) {
                 id="safetyScore"
                 type="number"
                 {...register("safetyScore", { valueAsNumber: true })}
-                className="bg-zinc-900 border-zinc-800 text-zinc-200 text-sm focus-visible:ring-amber-700/50"
+                className="bg-white/50 dark:bg-zinc-900/50 border-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm focus-visible:ring-amber-700/50"
               />
               {errors.safetyScore && (
                 <p className="text-red-500 text-xs">
@@ -163,7 +163,7 @@ export default function DriverDialog({ isOpen, onClose }: DriverDialogProps) {
               <select
                 id="status"
                 {...register("status")}
-                className="w-full appearance-none bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer"
+                className="w-full appearance-none bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-800 dark:text-zinc-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:border-zinc-700 cursor-pointer"
               >
                 <option value="Available">Available</option>
                 <option value="On Trip">On Trip</option>
@@ -178,11 +178,11 @@ export default function DriverDialog({ isOpen, onClose }: DriverDialogProps) {
             )}
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-800">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-200/50 dark:border-zinc-800/50">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="px-4 py-2 text-sm text-zinc-400 hover:text-zinc-800 dark:text-zinc-200 transition-colors"
             >
               Cancel
             </button>
