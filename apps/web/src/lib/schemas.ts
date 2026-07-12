@@ -59,3 +59,28 @@ export const completeTripSchema = z.object({
   fuelLiters: z.number().min(0),
   fuelCost: z.number().min(0),
 });
+
+export const maintenanceSchema = z.object({
+  vehicleId: z.string().min(1, "Vehicle is required"),
+  description: z.string().min(5, "Description must be at least 5 characters long"),
+  cost: z.number().min(0, "Cost must be non-negative"),
+  startDate: z.string().min(1, "Start date is required"),
+});
+
+export const fuelLogSchema = z.object({
+  vehicleId: z.string().min(1, "Vehicle is required"),
+  tripId: z.string().optional(),
+  liters: z.number().positive("Liters must be positive"),
+  cost: z.number().positive("Cost must be positive"),
+  date: z.string().min(1, "Date is required"),
+});
+
+export const expenseSchema = z.object({
+  vehicleId: z.string().min(1, "Vehicle is required"),
+  tripId: z.string().optional(),
+  amount: z.number().positive("Amount must be positive"),
+  category: z.enum(["Tolls", "Food", "Maintenance", "Fuel", "Other"]),
+  description: z.string().max(250, "Description cannot exceed 250 characters").optional(),
+  date: z.string().min(1, "Date is required"),
+});
+
