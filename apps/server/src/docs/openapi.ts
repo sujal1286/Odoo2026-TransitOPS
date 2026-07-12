@@ -21,6 +21,10 @@ export const openapiSpec = {
       description: "Operations and registry details for the driver profiles and licenses",
     },
     {
+      name: "Trips",
+      description: "Lifecycle, scheduling, routing, dispatching, and completion of transport trips",
+    },
+    {
       name: "Dashboard",
       description: "Fleet metrics, active utilization, and status count summaries",
     },
@@ -107,6 +111,102 @@ export const openapiSpec = {
         }
       }
     },
+    "/api/trips": {
+      "get": {
+        "tags": ["Trips"],
+        "summary": "List Trips",
+        "description": "Retrieve a list of transport trips.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Trip" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Trips"],
+        "summary": "Create Trip (Draft)",
+        "description": "Register a new trip in Draft state. Requires FLEET_MANAGER or DISPATCHER role.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateTripInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation Error" }
+        }
+      }
+    },
+    "/api/trips/{id}/dispatch": {
+      "patch": {
+        "tags": ["Trips"],
+        "summary": "Dispatch Trip",
+        "description": "Validates dispatch business rules and shifts trip status to Dispatched. Requires FLEET_MANAGER or DISPATCHER role.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique trip ID" }
+        ],
+        "responses": {
+          "200": { "description": "Dispatched" },
+          "400": { "description": "Business Rule/Validation Failure" },
+          "404": { "description": "Trip Not Found" }
+        }
+      }
+    },
+    "/api/trips/{id}/complete": {
+      "patch": {
+        "tags": ["Trips"],
+        "summary": "Complete Trip",
+        "description": "Updates odometer, restores statuses to Available, and records fuel log details. Requires FLEET_MANAGER, DISPATCHER, or DRIVER role.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique trip ID" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CompleteTripInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Completed" },
+          "400": { "description": "Business Rule/Validation Failure" },
+          "404": { "description": "Trip Not Found" }
+        }
+      }
+    },
+    "/api/trips/{id}/cancel": {
+      "patch": {
+        "tags": ["Trips"],
+        "summary": "Cancel Trip",
+        "description": "Cancels a Draft or Dispatched trip and restores asset statuses to Available. Requires FLEET_MANAGER or DISPATCHER role.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique trip ID" }
+        ],
+        "responses": {
+          "200": { "description": "Cancelled" },
+          "400": { "description": "Business Rule/Validation Failure" },
+          "404": { "description": "Trip Not Found" }
+        }
+      }
+    },
     "/api/dashboard/kpis": {
       "get": {
         "tags": ["Dashboard"],
@@ -159,6 +259,44 @@ export const openapiSpec = {
           "contactNumber": { "type": "string" },
           "safetyScore": { "type": "number" },
           "status": { "type": "string", "enum": ["Available", "On Trip", "Off Duty", "Suspended"] }
+        }
+      },
+      Trip: {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "type": "string" },
+          "destination": { "type": "string" },
+          "vehicleId": { "type": "string" },
+          "driverId": { "type": "string" },
+          "cargoWeight": { "type": "number" },
+          "plannedDistance": { "type": "number" },
+          "revenue": { "type": "number" },
+          "status": { "type": "string" },
+          "startOdometer": { "type": "number" },
+          "endOdometer": { "type": "number" }
+        }
+      },
+      CreateTripInput: {
+        "type": "object",
+        "required": ["source", "destination", "vehicleId", "driverId", "cargoWeight", "plannedDistance"],
+        "properties": {
+          "source": { "type": "string" },
+          "destination": { "type": "string" },
+          "vehicleId": { "type": "string" },
+          "driverId": { "type": "string" },
+          "cargoWeight": { "type": "number" },
+          "plannedDistance": { "type": "number" },
+          "revenue": { "type": "number" }
+        }
+      },
+      CompleteTripInput: {
+        "type": "object",
+        "required": ["endOdometer"],
+        "properties": {
+          "endOdometer": { "type": "number" },
+          "fuelLiters": { "type": "number" },
+          "fuelCost": { "type": "number" }
         }
       }
     }
