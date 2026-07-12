@@ -46,6 +46,7 @@
   "devDependencies": {
     "@Odoo2026-TransitOPS/config": "workspace:*",
     "@types/bun": "catalog:",
+    "shadcn": "^4.13.0",
     "turbo": "^2.10.0",
     "typescript": "catalog:"
   },
