@@ -22,3 +22,24 @@ export const signInSchema = z.object({
   password: z.string().min(1, "Password is required"),
   rememberMe: z.boolean(),
 });
+
+export const vehicleSchema = z.object({
+  registrationNumber: z.string().min(1, "Registration number is required"),
+  name: z.string().min(1, "Name/Model is required"),
+  type: z.string().min(1, "Type is required"),
+  maxLoadCapacity: z.number().min(0, "Capacity must be non-negative"),
+  odometer: z.number().min(0, "Odometer must be non-negative"),
+  acquisitionCost: z.number().min(0, "Acquisition cost must be non-negative"),
+  region: z.string().min(1, "Region is required"),
+  status: z.enum(["Available", "On Trip", "In Shop", "Retired"]),
+});
+
+export const driverSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  licenseNumber: z.string().min(1, "License number is required"),
+  licenseCategory: z.string().min(1, "License category is required"),
+  licenseExpiryDate: z.string().min(1, "License expiry date is required"),
+  contactNumber: z.string().min(1, "Contact number is required"),
+  safetyScore: z.number().min(0).max(100),
+  status: z.enum(["Available", "On Trip", "Off Duty", "Suspended"]),
+});

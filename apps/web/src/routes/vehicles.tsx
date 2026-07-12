@@ -1,14 +1,87 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { authClient } from "@/lib/auth-client";
+import { useVehiclesQuery } from "@/queries/vehicles";
+import type { Vehicle } from "@/queries/vehicles";
+import { useVehicleStore } from "@/store/useVehicleStore";
+import VehicleFilters from "@/components/vehicles/vehicle-filters";
+import VehicleTable from "@/components/vehicles/vehicle-table";
+import VehicleDialog from "@/components/vehicles/vehicle-dialog";
 
 export const Route = createFileRoute("/vehicles")({
-  component: Vehicles,
+  component: VehiclesRegistryComponent,
+  beforeLoad: async () => {
+    const session = await authClient.getSession();
+    if (!session.data) {
+      throw redirect({
+        to: "/login",
+      });
+    }
+    return { session };
+  },
 });
 
-function Vehicles() {
+function VehiclesRegistryComponent() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+
+  const filters = useVehicleStore();
+  const { data: allVehicles } = useVehiclesQuery();
+  const { data: filteredVehicles, isLoading } = useVehiclesQuery({
+    type: filters.type === "All" ? undefined : filters.type,
+    status: filters.status === "All" ? undefined : filters.status,
+    search: filters.search || undefined,
+  });
+
+  const uniqueTypes = allVehicles
+    ? Array.from(new Set(allVehicles.map((v) => v.type)))
+    : [];
+
+  const handleEdit = (vehicle: Vehicle) => {
+    setSelectedVehicle(vehicle);
+    setIsOpen(true);
+  };
+
+  const handleAdd = () => {
+    setSelectedVehicle(null);
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setSelectedVehicle(null);
+  };
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold tracking-tight">Vehicles</h1>
-      <p className="text-muted-foreground mt-2">Vehicle registry and management.</p>
+    <div className="p-6 space-y-6 bg-zinc-950 text-zinc-100 min-h-screen">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-xl font-bold text-zinc-100">Vehicle Registry</h1>
+        <p className="text-xs text-zinc-500">Manage your transport assets and operational statuses</p>
+      </div>
+
+      <VehicleFilters
+        onAddClick={handleAdd}
+        uniqueTypes={uniqueTypes}
+      />
+
+      {isLoading ? (
+        <div className="py-20 text-center text-zinc-500 text-sm">
+          Loading vehicles registry...
+        </div>
+      ) : (
+        <VehicleTable
+          vehicles={filteredVehicles ?? []}
+          onEditClick={handleEdit}
+        />
+      )}
+
+      {isOpen && (
+        <VehicleDialog
+          isOpen={isOpen}
+          onClose={handleClose}
+          vehicle={selectedVehicle}
+        />
+      )}
     </div>
   );
 }
