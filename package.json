@@ -36,6 +36,7 @@
     "db:watch": "turbo -F @Odoo2026-TransitOPS/db db:watch",
     "db:stop": "turbo -F @Odoo2026-TransitOPS/db db:stop",
     "db:down": "turbo -F @Odoo2026-TransitOPS/db db:down",
+    "db:seed": "bun --env-file=apps/server/.env run apps/server/src/seed.ts",
     "test": "bun run --filter web test && bun run --filter server test"
   },
   "dependencies": {
