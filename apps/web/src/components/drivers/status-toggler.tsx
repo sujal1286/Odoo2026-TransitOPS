@@ -18,7 +18,7 @@ export default function StatusToggler() {
       });
       toast.success(`Driver status updated to ${status}`);
     } catch (err: any) {
-      toast.error(err.response?.data?.error || "Failed to update status");
+      toast.error(err.response?.data?.error?.message || err.response?.data?.error || "Failed to update status");
     }
   };
 

@@ -43,3 +43,19 @@ export const driverSchema = z.object({
   safetyScore: z.number().min(0).max(100),
   status: z.enum(["Available", "On Trip", "Off Duty", "Suspended"]),
 });
+
+export const createTripSchema = z.object({
+  source: z.string().min(1, "Source is required"),
+  destination: z.string().min(1, "Destination is required"),
+  vehicleId: z.string().min(1, "Vehicle is required"),
+  driverId: z.string().min(1, "Driver is required"),
+  cargoWeight: z.number().min(1, "Cargo weight must be greater than 0"),
+  plannedDistance: z.number().min(1, "Planned distance must be greater than 0"),
+  revenue: z.number().min(0),
+});
+
+export const completeTripSchema = z.object({
+  endOdometer: z.number().min(1, "End odometer is required"),
+  fuelLiters: z.number().min(0),
+  fuelCost: z.number().min(0),
+});

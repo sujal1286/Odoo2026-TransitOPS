@@ -1,23 +1,41 @@
 import { useDashboardStore } from "@/store/useDashboardStore";
-
-const mockTrips = [
-  { id: "TR001", vehicle: "VAN-05", driver: "Alex", status: "On Trip", eta: "45 min", type: "Van", region: "North" },
-  { id: "TR002", vehicle: "TRX-12", driver: "John", status: "Completed", eta: "—", type: "Semi Truck", region: "South" },
-  { id: "TR003", vehicle: "MINI-08", driver: "Priya", status: "Dispatched", eta: "10 min", type: "Box Truck", region: "West" },
-  { id: "TR004", vehicle: "—", driver: "—", status: "Draft", eta: "Awaiting vehicle", type: "Flatbed", region: "East" },
-];
+import { useTripsQuery } from "@/queries/trips";
+import { useVehiclesQuery } from "@/queries/vehicles";
+import { useDriversQuery } from "@/queries/drivers";
 
 export default function RecentTrips() {
   const filters = useDashboardStore();
 
-  const filteredTrips = mockTrips.filter((trip) => {
-    if (filters.vehicleType !== "All" && trip.type !== filters.vehicleType) return false;
+  const { data: trips, isLoading } = useTripsQuery();
+  const { data: vehicles } = useVehiclesQuery();
+  const { data: drivers } = useDriversQuery();
+
+  const getEta = (status: string) => {
+    switch (status) {
+      case "Draft":
+        return "Awaiting vehicle";
+      case "Dispatched":
+        return "45 min";
+      case "Completed":
+        return "—";
+      case "Cancelled":
+        return "Cancelled";
+      default:
+        return "—";
+    }
+  };
+
+  const filteredTrips = (trips ?? []).filter((trip) => {
+    const vehicle = vehicles?.find((v) => v.id === trip.vehicleId);
+    const driver = drivers?.find((d) => d.id === trip.driverId);
+
+    if (filters.vehicleType !== "All" && vehicle?.type !== filters.vehicleType) return false;
     if (filters.status !== "All" && trip.status !== filters.status) return false;
-    if (filters.region !== "All" && trip.region !== filters.region) return false;
+    if (filters.region !== "All" && vehicle?.region !== filters.region) return false;
     if (filters.search) {
       const s = filters.search.toLowerCase();
-      const matchVehicle = trip.vehicle.toLowerCase().includes(s);
-      const matchDriver = trip.driver.toLowerCase().includes(s);
+      const matchVehicle = vehicle ? vehicle.name.toLowerCase().includes(s) : false;
+      const matchDriver = driver ? driver.name.toLowerCase().includes(s) : false;
       const matchId = trip.id.toLowerCase().includes(s);
       if (!matchVehicle && !matchDriver && !matchId) return false;
     }
@@ -42,36 +60,55 @@ export default function RecentTrips() {
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-900 text-sm">
-              {filteredTrips.length === 0 ? (
+              {isLoading ? (
+                <tr>
+                  <td colSpan={5} className="py-8 text-center text-zinc-600">
+                    Loading recent trips...
+                  </td>
+                </tr>
+              ) : filteredTrips.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="py-8 text-center text-zinc-600">
                     No recent trips match the filter criteria.
                   </td>
                 </tr>
               ) : (
-                filteredTrips.map((t) => (
-                  <tr key={t.id} className="text-zinc-300">
-                    <td className="py-3.5 pr-4 font-semibold text-zinc-200">{t.id}</td>
-                    <td className="py-3.5 px-4 font-medium">{t.vehicle}</td>
-                    <td className="py-3.5 px-4 text-zinc-400">{t.driver}</td>
-                    <td className="py-3.5 px-4">
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${
-                          t.status === "On Trip"
-                            ? "bg-blue-950/40 text-blue-400 border-blue-800/40"
-                            : t.status === "Completed"
-                            ? "bg-emerald-950/40 text-emerald-400 border-emerald-800/40"
-                            : t.status === "Dispatched"
-                            ? "bg-cyan-950/40 text-cyan-400 border-cyan-800/40"
-                            : "bg-zinc-900/60 text-zinc-400 border-zinc-800"
-                        }`}
-                      >
-                        {t.status}
-                      </span>
-                    </td>
-                    <td className="py-3.5 pl-4 text-zinc-400 font-medium">{t.eta}</td>
-                  </tr>
-                ))
+                filteredTrips.map((t) => {
+                  const vehicle = vehicles?.find((v) => v.id === t.vehicleId);
+                  const driver = drivers?.find((d) => d.id === t.driverId);
+                  
+                  return (
+                    <tr key={t.id} className="text-zinc-300">
+                      <td className="py-3.5 pr-4 font-semibold text-zinc-200">
+                        {t.id.substring(0, 8).toUpperCase()}
+                      </td>
+                      <td className="py-3.5 px-4 font-medium">
+                        {vehicle ? vehicle.name : "Unassigned"}
+                      </td>
+                      <td className="py-3.5 px-4 text-zinc-400">
+                        {driver ? driver.name : "Unassigned"}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <span
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${
+                            t.status === "On Trip" || t.status === "Dispatched"
+                              ? "bg-blue-950/40 text-blue-400 border-blue-800/40"
+                              : t.status === "Completed"
+                              ? "bg-emerald-950/40 text-emerald-400 border-emerald-800/40"
+                              : t.status === "Cancelled"
+                              ? "bg-rose-950/40 text-rose-400 border-rose-800/40"
+                              : "bg-zinc-900/60 text-zinc-400 border-zinc-800"
+                          }`}
+                        >
+                          {t.status}
+                        </span>
+                      </td>
+                      <td className="py-3.5 pl-4 text-zinc-400 font-medium">
+                        {getEta(t.status)}
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
