@@ -1,0 +1,38 @@
+{
+  "name": "server",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsdown",
+    "check-types": "tsc -b",
+    "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
+    "test": "vitest run --passWithNoTests",
+    "dev": "bun run --hot src/index.ts",
+    "start": "bun run dist/index.js"
+  },
+  "dependencies": {
+    "@Odoo2026-TransitOPS/auth": "workspace:*",
+    "@Odoo2026-TransitOPS/db": "workspace:*",
+    "@Odoo2026-TransitOPS/env": "workspace:*",
+    "@react-email/components": "^1.0.12",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "hono": "^4.12.27",
+    "react": "catalog:",
+    "react-email": "^6.6.5",
+    "resend": "^6.16.0",
+    "winston": "^3.19.0",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@Odoo2026-TransitOPS/config": "workspace:*",
+    "@types/bun": "catalog:",
+    "@types/react": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "@vitest/ui": "catalog:",
+    "jsdom": "catalog:",
+    "tsdown": "^0.22.3",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
